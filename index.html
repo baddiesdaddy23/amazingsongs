@@ -717,70 +717,73 @@
     </div>
 
     <script>
-        // Theme toggle functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        // Theme toggler (This part is fine)
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         const themeIcon = themeToggle.querySelector('i');
-        
-        // Check for saved theme preference or respect OS preference
-        if (localStorage.getItem('theme') === 'dark' || 
-            (window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme'))) {
+        const themeText = themeToggle.childNodes[2];
+
+        if (localStorage.getItem('theme') === 'dark') {
             body.classList.add('dark-mode');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            themeText.textContent = ' Light Mode';
         }
-        
+
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
-            
             if (body.classList.contains('dark-mode')) {
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
                 localStorage.setItem('theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                themeText.textContent = ' Light Mode';
             } else {
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
                 localStorage.setItem('theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                themeText.textContent = ' Dark Mode';
             }
         });
-        
-        // Lyrics toggle functionality
-        document.querySelectorAll('.lyrics-toggle').forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const lyricsContainer = toggle.nextElementSibling;
-                lyricsContainer.classList.toggle('active');
-                toggle.classList.toggle('active');
-                
-                if (toggle.classList.contains('active')) {
-                    toggle.querySelector('span').textContent = 'Hide Lyrics';
+
+        // --- START OF NEW UNIFIED FIX ---
+
+        const songsGrid = document.querySelector('.songs-grid');
+
+        // A single function to handle all interactions within the song cards
+        const handleCardInteraction = (event) => {
+            const lyricsToggle = event.target.closest('.lyrics-toggle');
+            const editIcon = event.target.closest('.edit-icon');
+
+            // Case 1: The user clicked the "Show Lyrics" button
+            if (lyricsToggle) {
+                // Prevent the browser from also firing a "click" after a "touchstart" on mobile
+                event.preventDefault();
+
+                const lyricsContainer = lyricsToggle.nextElementSibling;
+                const toggleText = lyricsToggle.querySelector('span');
+
+                lyricsToggle.classList.toggle('active');
+
+                if (lyricsToggle.classList.contains('active')) {
+                    lyricsContainer.classList.add('active');
+                    toggleText.textContent = 'Hide Lyrics';
                 } else {
-                    toggle.querySelector('span').textContent = 'Show Lyrics';
+                    lyricsContainer.classList.remove('active');
+                    toggleText.textContent = 'Show Lyrics';
                 }
-            });
-        });
-        
-        // Edit song title functionality
-        document.querySelectorAll('.edit-icon').forEach(icon => {
-            icon.addEventListener('click', () => {
-                const titleInput = icon.previousElementSibling;
-                titleInput.focus();
-                titleInput.select();
-            });
-        });
-        
-        // Make song titles editable on double-click
-        document.querySelectorAll('.song-title').forEach(title => {
-            title.addEventListener('dblclick', () => {
-                title.focus();
-                title.select();
-            });
-        });
-        
-        // Initialize animations
-        document.addEventListener('DOMContentLoaded', () => {
-            // Trigger fade-in animations for song cards
-            const songCards = document.querySelectorAll('.song-card');
-            songCards.forEach(card => {
-                card.style.animationPlayState = 'running';
-            });
-        });
-    </script>
+            } 
+            // Case 2: The user clicked the edit icon
+            else if (editIcon) {
+                const songTitleInput = editIcon.previousElementSibling;
+                songTitleInput.focus();
+                songTitleInput.select();
+            }
+        };
+
+        // Attach the single, smart handler to both event types
+        songsGrid.addEventListener('click', handleCardInteraction);
+        songsGrid.addEventListener('touchstart', handleCardInteraction);
+
+        // --- END OF NEW UNIFIED FIX ---
+    });
+</script>
 </body>
 </html>
