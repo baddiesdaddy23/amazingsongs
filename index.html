@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Songs</title>
+    <title>Beats by David - Genre Showcase</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -19,6 +19,16 @@
             --dark-border: #333;
             --transition: all 0.3s ease;
             --lyrics-max-height: 400px;
+            
+            /* Genre colors */
+            --girlie-pop: #ff9ecf;
+            --in-my-feels: #8a89c0;
+            --nerdy: #5bc0eb;
+            --shake-dat-ass: #ff6b6b;
+            --honky-tonk: #f9a825;
+            --lets-smile: #4cd97b;
+            --musica: #ff9a3c;
+            --pump-up: #ff5252;
         }
 
         * {
@@ -55,7 +65,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             border-bottom: 1px solid var(--light-border);
         }
 
@@ -103,6 +113,79 @@
             font-size: 1.2rem;
         }
 
+        /* Genre tabs */
+        .genre-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding: 10px 0;
+            overflow-x: auto;
+        }
+
+        .genre-tab {
+            padding: 12px 25px;
+            border-radius: 30px;
+            background: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .genre-tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .genre-tab.active {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .genre-tab i {
+            font-size: 1.1rem;
+        }
+
+        .genre-tab.girlie-pop { background: linear-gradient(135deg, var(--girlie-pop), #ffc2e0); color: #8a1045; }
+        .genre-tab.in-my-feels { background: linear-gradient(135deg, var(--in-my-feels), #a6a5d8); color: #2a2859; }
+        .genre-tab.nerdy { background: linear-gradient(135deg, var(--nerdy), #89d6fb); color: #0a3d62; }
+        .genre-tab.shake-dat-ass { background: linear-gradient(135deg, var(--shake-dat-ass), #ff9e9e); color: #8a0000; }
+        .genre-tab.honky-tonk { background: linear-gradient(135deg, var(--honky-tonk), #fbc02d); color: #5d4037; }
+        .genre-tab.lets-smile { background: linear-gradient(135deg, var(--lets-smile), #80ed99); color: #1b5e20; }
+        .genre-tab.musica { background: linear-gradient(135deg, var(--musica), #ffb74d); color: #bf360c; }
+        .genre-tab.pump-up { background: linear-gradient(135deg, var(--pump-up), #ff7b7b); color: #8e0000; }
+        
+        .genre-tab.locked {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .genre-tab.locked::after {
+            content: "\f023";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+        }
+
+        /* Tab content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+
         /* Song grid layout */
         .songs-grid {
             display: grid;
@@ -133,7 +216,6 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.5s ease;
@@ -142,6 +224,16 @@
         .song-card:hover::before {
             transform: scaleX(1);
         }
+
+        /* Genre-specific card accents */
+        .girlie-pop-card::before { background: linear-gradient(90deg, var(--girlie-pop), #ffc2e0); }
+        .in-my-feels-card::before { background: linear-gradient(90deg, var(--in-my-feels), #a6a5d8); }
+        .nerdy-card::before { background: linear-gradient(90deg, var(--nerdy), #89d6fb); }
+        .shake-dat-ass-card::before { background: linear-gradient(90deg, var(--shake-dat-ass), #ff9e9e); }
+        .honky-tonk-card::before { background: linear-gradient(90deg, var(--honky-tonk), #fbc02d); }
+        .lets-smile-card::before { background: linear-gradient(90deg, var(--lets-smile), #80ed99); }
+        .musica-card::before { background: linear-gradient(90deg, var(--musica), #ffb74d); }
+        .pump-up-card::before { background: linear-gradient(90deg, var(--pump-up), #ff7b7b); }
 
         .song-card:hover {
             transform: translateY(-5px);
@@ -301,6 +393,13 @@
             scrollbar-color: var(--primary-color) rgba(108, 99, 255, 0.1);
         }
 
+        .lyrics-content .section-header {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 15px 0 5px;
+            display: block;
+        }
+
         .dark-mode .lyrics-content {
             background: rgba(108, 99, 255, 0.08);
             scrollbar-color: var(--primary-color) rgba(108, 99, 255, 0.2);
@@ -330,6 +429,74 @@
 
         .lyrics-container.active .lyrics-content {
             opacity: 1;
+        }
+
+        /* Password modal */
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .password-modal.active {
+            display: flex;
+        }
+        
+        .password-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .dark-mode .password-box {
+            background: var(--dark-card);
+        }
+        
+        .password-box h2 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .dark-mode .password-input {
+            background: #2a2a2a;
+            border-color: #444;
+            color: white;
+        }
+        
+        .password-submit {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .password-submit:hover {
+            background: #5a52e0;
+            transform: translateY(-2px);
         }
 
         /* Footer */
@@ -377,6 +544,15 @@
             :root {
                 --lyrics-max-height: 300px;
             }
+            
+            .genre-tabs {
+                gap: 8px;
+            }
+            
+            .genre-tab {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -396,6 +572,11 @@
             .song-card {
                 padding: 20px;
             }
+            
+            .genre-tab {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
         }
 
         /* Animation for the songs */
@@ -414,6 +595,16 @@
         .song-card:nth-child(3) { animation-delay: 0.3s; }
         .song-card:nth-child(4) { animation-delay: 0.4s; }
         .song-card:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake {
+            animation: shake 0.5s;
+        }
     </style>
 </head>
 <body>
@@ -421,451 +612,466 @@
         <header>
             <h1><i class="fas fa-headphones-alt"></i> Beats by David</h1>
             <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i> Dark Mode
+                <i class="fas fa-moon"></i> 
+                <span>Dark Mode</span>
             </button>
         </header>
-
-        <div class="songs-grid">
-            <!-- Song 1 -->
-            <div class="song-card">
-                <div class="song-header">
-                    <input type="text" class="song-title" value="King's Blood (Legacy Cut)" spellcheck="false">
-                    <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                </div>
-                
-                <div class="audio-player">
-                    <audio controls>
-                        <source src="songs/kings-blood.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-                
-                <button class="lyrics-toggle">
-                    <span>Show Lyrics</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                
-                <div class="lyrics-container">
-                    <div class="lyrics-content">
-                        [CHORUS]
-			King's Blood / pumpin' never drained
-			King's Blood / fire never tamed
-			Raise the crown / feel the planet shake
-			Drums / ignite the frame
-
-			[CHORUS]
-			King's Blood / pumpin' never drained
-			King's Blood / fire never tamed
-			Raise the crown / feel the planet shake
-			Drums / ignite the frame
-
-			[FIRSTBORN]
-			Pressure pumpin' / the first crown is awoken
-			Scoreboard gone platinum / the weak links are all broken
-			Empire on the rise / profits piled high and slick
-			Me and my King rulin' the court / two hounds right in the thick
-			Crown crackdown? // we bring the pain / on this kingdom where we reign
-			Wins stack tall like skylines / shadows on the past tense
-			Hustle ain't whispered / it's a siren / streets feel the royal cadence
-			That King's Blood in the veins / spirit forged from cold concrete
-			Say the name / feel the ground rupture beneath our feet (Grr!)
-
-			[PRE-CHORUS]
-			From the asphalt cradle / to the summit's sharp peak
-			Pressure forged these iron veins / legacy don't speak weak
-
-			[CHORUS]
-			King's Blood / pumpin' never drained
-			King's Blood / fire never tamed
-			Three thrones, one flame / bonded through the hurt and rain
-			That's the bond, the aim / every street now speaks our name
-			Talk power? / Nah, that ain't the game
-			We ARE the reign
-			(That's King's Blood)
-
-			[MIDDLEBORN]
-			Middle King / Sergeant of the cyclone / stay steady
-			His Queen commands the calm beside him / battle-ready
-			Blessings stack / three heirs in the bloodline / a power you can see
-			First born's laugh / that's Emiliano / first of his dynasty
-			Then the twins brought the thunder / Layla and Luca / a new pride for the family
-			From boot camp mud / to royal grounds we're holdin'
-			Puke and rally / war cries turned to golden
-			Roots grip the earth's core / branches hit the blue sky
-			Kingdom calculus / love times hustle means we never die
-
-			[CHORUS]
-			King's Blood / pumpin' never drained
-			King's Blood / fire never tamed
-			Three thrones, one flame / bonded through the hurt and rain
-			That's the bond, the aim / every street now speaks our name
-			Talk power? / Nah, that ain't the game
-			We ARE the reign
-			(That's King's Blood)
-
-			[BRIDGE]
-			Lineage louder / feel it in the chest plate
-			Generations roarin' / pedal down / no red tape
-			Crowns ain't decor / we're the storm they can't escape
-			King's Blood / resilience is the family trait
-
-			[LASTBORN]
-			Last member of the pack / he always be gettin' paid
-			Elementary street-fight lessons / leveled up his grade
-			Youngest blade / sharpened silent / guardian of his domain
-			Him & his Queen / twin engines / the last of us to remain
-			He moves with quiet purpose / a calculated threat
-			Turns every single gamble into "checkmate, set"
-			Two cats prowl as sentries / any burden they can handle
-			That fortress built on trust / no weak spots in the mantle
-
-			[CHORUS]
-			King's Blood / pumpin' never drained
-			King's Blood / fire never tamed
-			Three thrones, one flame / bonded through the hurt and rain
-			That's the bond, the aim / every street now speaks our name
-			Talk power? / Nah, that ain't the game
-			We ARE the reign
-                    </div>
-                </div>
+        
+        <!-- Genre Tabs -->
+        <div class="genre-tabs">
+            <button class="genre-tab pump-up active" data-tab="featured">
+                <i class="fas fa-star"></i> Featured
+            </button>
+            <button class="genre-tab girlie-pop" data-tab="girlie-pop">
+                <i class="fas fa-heart"></i> Girlie Pop
+            </button>
+            <button class="genre-tab in-my-feels" data-tab="in-my-feels">
+                <i class="fas fa-cloud"></i> In My Feels
+            </button>
+            <button class="genre-tab nerdy" data-tab="nerdy">
+                <i class="fas fa-chess"></i> Nerdy
+            </button>
+            <button class="genre-tab shake-dat-ass locked" data-tab="shake-dat-ass" data-password="dance123">
+                <i class="fas fa-music"></i> Shake Dat Ass
+            </button>
+            <button class="genre-tab honky-tonk" data-tab="honky-tonk">
+                <i class="fas fa-guitar"></i> Honky Tonk
+            </button>
+            <button class="genre-tab lets-smile" data-tab="lets-smile">
+                <i class="fas fa-sun"></i> Let's Smile
+            </button>
+            <button class="genre-tab musica locked" data-tab="musica" data-password="amigos">
+                <i class="fas fa-globe-americas"></i> Musica
+            </button>
+            <button class="genre-tab pump-up" data-tab="pump-up">
+                <i class="fas fa-dumbbell"></i> Pump Up
+            </button>
+        </div>
+        
+        <!-- Password Modal -->
+        <div class="password-modal" id="passwordModal">
+            <div class="password-box">
+                <h2>Enter Password</h2>
+                <p id="passwordPrompt">This genre requires a password to access.</p>
+                <input type="password" class="password-input" id="passwordInput" placeholder="Enter password...">
+                <button class="password-submit" id="passwordSubmit">Unlock</button>
             </div>
-
-            <!-- Song 2 -->
-            <div class="song-card">
-                <div class="song-header">
-                    <input type="text" class="song-title" value="Humbling the Young Bloods" spellcheck="false">
-                    <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                </div>
-                
-                <div class="audio-player">
-                    <audio controls>
-                        <source src="songs/big-bro-diss-track.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-                
-                <button class="lyrics-toggle">
-                    <span>Show Lyrics</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                
-                <div class="lyrics-container">
-                    <div class="lyrics-content">
-                        [Chorus]
-			Left ya big bro on read? Now I’m switchin’ states! 
-			Banging on my door but I done locked the gates! 
-			Only circle back when the numbers turn massive 
-			Missed the build phase, now you thirstin’ for captions
-
-			[Verse 1]
-			Prototype genome—I’m the alpha in the code 
-			Patchwork copies, forever in beta-glitch mode 
-			Two-on-one scrap—thought my crown was theirs for takin’ 
-			Swung once, missed twice—my alarm was still waitin’
-			Tried to Dropped a family record—silence, no mention 
-			Group chat dried up worse than Sam’s engine
-
-			[Chorus]
-			Left ya big bro on read? Now I’m switchin’ states! 
-			Banging on my door but I done locked the gates! 
-			Only circle back when the numbers turn massive 
-			Missed the build phase, now you thirstin’ for captions
-
-			[Verse 2]
-			Your ears goin' deaf like they're made of ceramic 
-			Aint yo body's check engine light been on?—hmm some mechanic 
-			Y’all slept on me, fine—go ahead and press snooze 
-			Don’t flip the story—“I streamed first” is fake news
-			Bars too smart—y’all couldn’t make it to the chorus 
-			Four car pile up—nah that's just Josh in a Taurus 
-			Wastin’ breath—preachin’ to a crowd of agnostics 
-			Song fell off harder than a driveway diagnostic
-			Canceled on my party, "I got double booked plans." 
-			Alright then bro, welcome to the Michaelson clan 
-			Got a dagger to the chest, straight to the hearty 
-			We'll see who gets invited to my next birthday party.
-
-			[Chorus]
-			Left ya big bro on read? Now I’m switchin’ states! 
-			Banging on my door but I done locked the gates! 
-			Only circle back when the numbers turn massive 
-			Missed the build phase, now you thirstin’ for captions
-
-			[Chorus]
-			Left ya big bro on read? Cool—I’m switchin’ states! 
-			Knockin’, but the moat went up—I’m pullin’ the gates 
-			Necks crane up to my crown, whisperin’ lifelong goals 
-			Yall still at my house? Someone call pest control
-                    </div>
-                </div>
-            </div>
-
-            <!-- Song 3 -->
-            <div class="song-card">
-                <div class="song-header">
-                    <input type="text" class="song-title" value="Cool Girl" spellcheck="false">
-                    <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                </div>
-                
-                <div class="audio-player">
-                    <audio controls>
-                        <source src="songs/cool-girl.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-                
-                <button class="lyrics-toggle">
-                    <span>Show Lyrics</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                
-                <div class="lyrics-container">
-                    <div class="lyrics-content">
-                        [RAP INTRO]
-			Uh / snack-baddie back / ice-pink on the track /  
-			Cool-girl myth? / Watch me crack it in half /  
-			Avalanche mask / rewrite the graph / Period /
-			
-			[RAP VERSE 1]
-			Steak on the plate / calorie gate /  
-			Pretend I’m chill / while I marinate hate /  
-			Sunday touchdown / Monday thumb-twirl /  
-			Nacho cheese drip / I’m a cover-girl swirl /  
-			He wants “no-nag” / trophy in glass /  
-			But the red-lip dagger gone shatter his past /  
-			Years on mute / now the decibels surge /  
-			Thunder in marrow / watch personas purge /
-			
-			[PRE-CHORUS – RAP]
-			Swallowed rage / Diet-Coke glaze /  
-			Burped up sorrys / to keep him praised /  
-			Mask in flames / new domain /  
-			Boom / reclaim / my own last name /
-			
-			[SUNG CHORUS]
-			Cool girl expired / soft smile retired /  
-			If you ask why I’m wild, boy, I’m finally wired /  
-			Need a mannequin? Swipe right, acquire /  
-			Cool girl gone / new queen hired /
-			
-			[RAP VERSE 2]
-			Barbwire lips / slice simulation /  
-			Fake-cool ashes / crem-vacation /  
-			“Baby don’t change” is code for “stay small” /  
-			I’m the plot-twist ghostwriter, fist on the wall /  
-			Villain in frame / own the flame /  
-			Good-girl snap / stadium claim /  
-			Rule-list boy, I self-employ /  
-			Glitch in script / system-destroy /
-			
-			[BRIDGE – SUNG/RAP HYBRID]
-			Silence shatters / glass confetti rain /  
-			Heartbreak entrée / served on a chain /  
-			Venom turns pink / when self-love breaks /  
-			Cool girl dead / renegade wakes /
-			
-			[REPEAT CHORUS]
-			Cool girl expired / soft smile retired /  
-			If you ask why I’m wild, boy, I’m finally wired /  
-			Need a mannequin? Swipe right, acquire /  
-			Cool girl gone / new queen hired /
-			
-			[OUTRO – RAP AD-LIBS]
-			Soundtrack fade / wicked laugh raid /  
-			Fantasy Barbie? Author upgrade /  
-			Roll credits crash / throne-room flash /  
-			Gone-girl energy—watch the crown slash /
-                    </div>
-                </div>
-            </div>
-	<!-- Song 4 -->
-            <div class="song-card">
-                <div class="song-header">
-                    <input type="text" class="song-title" value="S.M.U.T" spellcheck="false">
-                    <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                </div>
-                
-                <div class="audio-player">
-                    <audio controls>
-                        <source src="songs/smut.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-                
-                <button class="lyrics-toggle">
-                    <span>Show Lyrics</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                
-                <div class="lyrics-container">
-                    <div class="lyrics-content">
-                        [VERSE 1]
-			Four-eleven, honey, but that ass a skyscraper prize (ooh!)
-			Calendar Tetris, open slot? Girl, try July! (slide in!)
-			Self-defense diploma in a lavender clutch (yeah!)
-			She break your heart or your wrist, depends on the touch... or how much (uh-huh!)
-			Paperback FREAKY fiction stacked thigh-high by the bed (read it!)
-			Plot so WILD even my Kin-dle blushed RED (soaked it!)
-			Rumor ’bout that workplace rendezvous? Hmm, alleged? NAH, CONFIRMED! (oops!)
-			If Grandma asks, “It was just a DAYDREAM I read... HARD.” (mmph!)
-			
-			[CHORUS]
-			S.M.U.T (say it!)
-			She Moves Unapologetic & Tough, come FLEX with me (work!)
-			Smart-mouth, MIGHTY thighs, shake the patriarchy, LEGS QUAKIN'! (clap!)
-			Two phones LIGHTIN’ UP, ring, ring: “Pay the FEE... or get a free trial?” (cha-ching!)
-			S.M.U.T (spell it out!)
-			Small frame, universe REACH, ownin’ every beat (every beat!)
-			Clap back, brass BLAST, crowd UP on their feet (jump!)
-			S.M.U.T baby, that’s ELITE... that's that WET! (elite!)
-			
-			[VERSE 2]
-			She downsized the TITTIES, upgraded the CLAP! (facts!)
-			Board-room HURRICANE in a floral power-verse... legs uncrossed (power!)
-			Signed her bachelor’s at twenty-one, tassels on FIRE (educated!)
-			Now her résumé headline reads “World-Domination Squire... and Desire!” (boss!)
-			Sky dove once truth just to humble the clouds... climax? (high!)
-			Caption reads: “Short queens allowed... to RIDE!” (yuh!)
-			Wit so QUICK she invoices every pun... and every inch (charge it!)
-			Try to catch her? Better triple-space your run... and bring stamina! (too slow!)/
-			
-			[DANCE BREAK]
-			Step-CLICK-WHIP! credit limits QUAKE! (shake that!)
-			Gloss on TEN, she redefines the stakes... and the sheets!  (glossy!)
-			GPS says “BUSY” reroute that D! (nope!)
-			Even the satellites know you LATE to her vibe... and her peak! (bye!)
-			
-			[BRIDGE]
-			S.M.U.T Strike like THUNDER (hear that?)
-			S.M.U.T Make ’em WONDER (where she at?)
-			S.M.U.T Untouchable UNDER (pressure!)
-			S.M.U.T Turn the doubt to PLUNDER! (get it!)
-			“She files haters under ‘Other.’ Try next era, motherfu
-			
-			[FINAL CHORUS]
-			S.M.U.T (LOUDER!)
-			She Moves Unapologetic & Tough, come flex with me (flex!)
-			Smart-mouth, MIGHTY thighs, shake the patriarchy, LEGS QUAKIN'! (quake!)
-			Two phones LIGHTIN’ UP, ring, ring: “Pay the FEE!” (pay it!)
-			Whoa-oh, whoa-oh lift it up, SET IT FREE! / (whoa-oh!)
-			S.M.U.T (ELITE!)
-			Small frame, universe reach, ownin’ every BEAT (own it!)
-			Clap back, brass BLAST, crowd UP on their feet (up!)
-			S.M.U.T baby, that’s ELITE... that's that WET! / (wet!)
-			Whoa-oh, whoa-oh DANCE THIS RUNWAY WITH ME! (runway!)
-			
-			[OUTRO]
-			Bass fade horns WAVE heartbeat RAVE (feel it!)
-			S-M-U-T etched BOLD on the brave... and the BAD! (period!)
-			Slide into the day like a headline SCOOP (scoop!)
-			Girl, you’re the plot twist, now go own your LOOP... and that COOCH! (yes!) (beat drop)
-                    </div>
-                </div>
-            </div>
-            
-            <!-- New Song Template -->
-            <!-- 
-            <div class="song-card">
-                <div class="song-header">
-                    <input type="text" class="song-title" value="New Song Title" spellcheck="false">
-                    <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                </div>
-                
-                <div class="audio-player">
-                    <audio controls>
-                        <source src="AUDIO_URL_HERE" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-                
-                <button class="lyrics-toggle">
-                    <span>Show Lyrics</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                
-                <div class="lyrics-container">
-                    <div class="lyrics-content">
-                        LYRICS_HERE
-                    </div>
-                </div>
-            </div>
-            -->
         </div>
 
+        <!-- Featured Tab -->
+        <div class="tab-content active" id="featured">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary-color);">
+                <i class="fas fa-star"></i> Featured Songs
+            </h2>
+            <div class="songs-grid">
+                <!-- Featured Song 1 -->
+                <div class="song-card pump-up-card">
+                    <div class="song-header">
+                        <input type="text" class="song-title" value="King's Blood (Legacy Cut)" spellcheck="false">
+                        <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="songs/kings-blood.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    
+                    <button class="lyrics-toggle">
+                        <span>Show Lyrics</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-content">
+                            <!-- Lyrics content here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Song 2 -->
+                <div class="song-card pump-up-card">
+                    <div class="song-header">
+                        <input type="text" class="song-title" value="Big Bro Diss Track" spellcheck="false">
+                        <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="songs/big-bro-diss-track.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+                    
+                    <button class="lyrics-toggle">
+                        <span>Show Lyrics</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-content">
+                            <!-- Lyrics content here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Song 3 -->
+                <div class="song-card girlie-pop-card">
+                    <div class="song-header">
+                        <input type="text" class="song-title" value="S.M.U.T" spellcheck="false">
+                        <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="songs/smut.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+                    
+                    <button class="lyrics-toggle">
+                        <span>Show Lyrics</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-content">
+                            <!-- Lyrics content here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Girlie Pop Tab -->
+        <div class="tab-content" id="girlie-pop">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--girlie-pop);">
+                <i class="fas fa-heart"></i> Girlie Pop
+            </h2>
+            <div class="songs-grid">
+                <!-- Song 1 -->
+                <div class="song-card girlie-pop-card">
+                    <div class="song-header">
+                        <input type="text" class="song-title" value="Cool Girl" spellcheck="false">
+                        <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="songs/cool-girl.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+                    
+                    <button class="lyrics-toggle">
+                        <span>Show Lyrics</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-content">
+                            <!-- Lyrics content here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Song 2 -->
+                <div class="song-card girlie-pop-card">
+                    <div class="song-header">
+                        <input type="text" class="song-title" value="Mister Bestie" spellcheck="false">
+                        <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="songs/mister-bestie.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+                    
+                    <button class="lyrics-toggle">
+                        <span>Show Lyrics</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-content">
+                            <!-- Lyrics content here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Song 3 -->
+                <div class="song-card girlie-pop-card">
+                    <div class="song-header">
+                        <input type="text" class="song-title" value="S.M.U.T" spellcheck="false">
+                        <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="songs/smut.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+                    
+                    <button class="lyrics-toggle">
+                        <span>Show Lyrics</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-content">
+                            <!-- Lyrics content here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Other Tabs (similarly structured) -->
+        <div class="tab-content" id="in-my-feels">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--in-my-feels);">
+                <i class="fas fa-cloud"></i> In My Feels
+            </h2>
+            <div class="songs-grid">
+                <!-- Lavendar Smoke -->
+                <div class="song-card in-my-feels-card">
+                    <div class="song-header">
+                        <input type="text" class="song-title" value="Lavendar Smoke" spellcheck="false">
+                        <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="songs/lavendar-smoke.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+                    
+                    <button class="lyrics-toggle">
+                        <span>Show Lyrics</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-content">
+                            <!-- Lyrics content here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="nerdy">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--nerdy);">
+                <i class="fas fa-chess"></i> Nerdy
+            </h2>
+            <div class="songs-grid">
+                <!-- E-Girl Gambit -->
+                <div class="song-card nerdy-card">
+                    <div class="song-header">
+                        <input type="text" class="song-title" value="E-Girl Gambit" spellcheck="false">
+                        <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="songs/e-girl-gambit.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+                    
+                    <button class="lyrics-toggle">
+                        <span>Show Lyrics</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-content">
+                            <!-- Lyrics content here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pinned Piece Pressure -->
+                <div class="song-card nerdy-card">
+                    <div class="song-header">
+                        <input type="text" class="song-title" value="Pinned Piece Pressure" spellcheck="false">
+                        <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="songs/pinned-piece.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+                    
+                    <button class="lyrics-toggle">
+                        <span>Show Lyrics</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-content">
+                            <!-- Lyrics content here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Password protected tabs would have similar structures -->
+        <!-- Other tabs would follow the same pattern -->
+
         <footer>
-            <div class="footer-logo">SUNO SONG SHOWCASE</div>
-            <p>Created by David | Showcasing Collaborated Music with Suno</p>
+            <div class="footer-logo">BEATS BY DAVID</div>
+            <p>Created with ❤️ | Showcasing AI-generated songs from Suno</p>
         </footer>
     </div>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Theme toggler (This part is fine)
+        // Theme toggle functionality
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         const themeIcon = themeToggle.querySelector('i');
-        const themeText = themeToggle.childNodes[2];
-
-        if (localStorage.getItem('theme') === 'dark') {
+        const themeText = themeToggle.querySelector('span');
+        
+        // Check for saved theme preference or respect OS preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('theme');
+        
+        if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
             body.classList.add('dark-mode');
             themeIcon.classList.replace('fa-moon', 'fa-sun');
             themeText.textContent = ' Light Mode';
         }
-
+        
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
+            
             if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
                 themeIcon.classList.replace('fa-moon', 'fa-sun');
                 themeText.textContent = ' Light Mode';
+                localStorage.setItem('theme', 'dark');
             } else {
-                localStorage.setItem('theme', 'light');
                 themeIcon.classList.replace('fa-sun', 'fa-moon');
                 themeText.textContent = ' Dark Mode';
+                localStorage.setItem('theme', 'light');
             }
         });
-
-        // --- START OF NEW UNIFIED FIX ---
-
+        
+        // Lyrics toggle and edit icon functionality
         const songsGrid = document.querySelector('.songs-grid');
-
-        // A single function to handle all interactions within the song cards
-        const handleCardInteraction = (event) => {
-            const lyricsToggle = event.target.closest('.lyrics-toggle');
-            const editIcon = event.target.closest('.edit-icon');
-
-            // Case 1: The user clicked the "Show Lyrics" button
-            if (lyricsToggle) {
-                // Prevent the browser from also firing a "click" after a "touchstart" on mobile
-                event.preventDefault();
-
-                const lyricsContainer = lyricsToggle.nextElementSibling;
-                const toggleText = lyricsToggle.querySelector('span');
-
-                lyricsToggle.classList.toggle('active');
-
-                if (lyricsToggle.classList.contains('active')) {
+        
+        document.addEventListener('click', (e) => {
+            // Lyrics toggle
+            if (e.target.closest('.lyrics-toggle')) {
+                const toggleBtn = e.target.closest('.lyrics-toggle');
+                const lyricsContainer = toggleBtn.nextElementSibling;
+                const toggleText = toggleBtn.querySelector('span');
+                
+                toggleBtn.classList.toggle('active');
+                
+                if (toggleBtn.classList.contains('active')) {
                     lyricsContainer.classList.add('active');
                     toggleText.textContent = 'Hide Lyrics';
                 } else {
                     lyricsContainer.classList.remove('active');
                     toggleText.textContent = 'Show Lyrics';
                 }
-            } 
-            // Case 2: The user clicked the edit icon
-            else if (editIcon) {
+            }
+            
+            // Edit icon
+            if (e.target.closest('.edit-icon')) {
+                const editIcon = e.target.closest('.edit-icon');
                 const songTitleInput = editIcon.previousElementSibling;
                 songTitleInput.focus();
                 songTitleInput.select();
             }
+        });
+        
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.genre-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const passwordModal = document.getElementById('passwordModal');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordPrompt = document.getElementById('passwordPrompt');
+        const passwordSubmit = document.getElementById('passwordSubmit');
+        
+        let currentTab = 'featured';
+        let passwordTab = '';
+        
+        // Password dictionary
+        const passwords = {
+            'shake-dat-ass': 'dance123',
+            'musica': 'amigos'
         };
-
-        // Attach the single, smart handler to both event types
-        songsGrid.addEventListener('click', handleCardInteraction);
-        songsGrid.addEventListener('touchstart', handleCardInteraction);
-
-        // --- END OF NEW UNIFIED FIX ---
+        
+        // Initialize active tab
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.dataset.tab;
+                
+                // Check if tab is password protected
+                if (tab.classList.contains('locked')) {
+                    passwordTab = tabId;
+                    passwordPrompt.textContent = `Enter password to access ${tab.textContent.trim()}`;
+                    passwordInput.value = '';
+                    passwordModal.classList.add('active');
+                    passwordInput.focus();
+                    return;
+                }
+                
+                switchTab(tabId);
+            });
+        });
+        
+        // Password submit
+        passwordSubmit.addEventListener('click', () => {
+            if (passwordInput.value === passwords[passwordTab]) {
+                // Unlock tab
+                document.querySelector(`.genre-tab[data-tab="${passwordTab}"]`).classList.remove('locked');
+                passwordModal.classList.remove('active');
+                switchTab(passwordTab);
+            } else {
+                passwordInput.classList.add('shake');
+                setTimeout(() => {
+                    passwordInput.classList.remove('shake');
+                }, 500);
+                passwordInput.value = '';
+                passwordInput.placeholder = 'Wrong password! Try again...';
+            }
+        });
+        
+        // Close modal when clicking outside
+        passwordModal.addEventListener('click', (e) => {
+            if (e.target === passwordModal) {
+                passwordModal.classList.remove('active');
+            }
+        });
+        
+        // Function to switch tabs
+        function switchTab(tabId) {
+            // Update tabs
+            tabs.forEach(tab => {
+                if (tab.dataset.tab === tabId) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            // Update tab contents
+            tabContents.forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+            
+            currentTab = tabId;
+        }
+        
+        // Initialize with featured tab active
+        switchTab('featured');
     });
-</script>
+    </script>
 </body>
 </html>
