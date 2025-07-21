@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My AI-Generated Songs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6c63ff;
+            --light-bg: #f8f9fa;
+            --light-text: #333;
+            --light-card: #ffffff;
+            --light-border: #e0e0e0;
+            --dark-bg: #121212;
+            --dark-text: #f0f0f0;
+            --dark-card: #1e1e1e;
+            --dark-border: #333;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--light-border);
+        }
+
+        .dark-mode header {
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-toggle {
+            background: var(--light-card);
+            border: 1px solid var(--light-border);
+            color: var(--light-text);
+            padding: 8px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .dark-mode .theme-toggle {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+        }
+
+        /* Song grid layout */
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* Song card styles */
+        .song-card {
+            background-color: var(--light-card);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border: 1px solid var(--light-border);
+        }
+
+        .dark-mode .song-card {
+            background-color: var(--dark-card);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--dark-border);
+        }
+
+        .song-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .song-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 5px 10px;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .song-title:focus {
+            background-color: rgba(108, 99, 255, 0.1);
+        }
+
+        .dark-mode .song-title:focus {
+            background-color: rgba(108, 99, 255, 0.2);
+        }
+
+        .edit-icon {
+            color: #aaa;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+        }
+
+        .edit-icon:hover {
+            color: var(--primary-color);
+        }
+
+        .audio-player {
+            width: 100%;
+            height: 50px;
+            border-radius: 8px;
+            background: var(--light-bg);
+        }
+
+        .dark-mode .audio-player {
+            background: #2a2a2a;
+        }
+
+        audio {
+            width: 100%;
+            outline: none;
+        }
+
+        /* Lyrics toggle button */
+        .lyrics-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .lyrics-toggle:hover {
+            background: #5a52e0;
+            transform: translateY(-2px);
+        }
+
+        .lyrics-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .lyrics-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Lyrics container */
+        .lyrics-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .lyrics-content {
+            background: rgba(108, 99, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            white-space: pre-line;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .dark-mode .lyrics-content {
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        .lyrics-container.active {
+            max-height: 1000px;
+        }
+
+        .lyrics-container.active .lyrics-content {
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            color: #777;
+            border-top: 1px solid var(--light-border);
+        }
+
+        .dark-mode footer {
+            border-top: 1px solid var(--dark-border);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .songs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Animation for the songs */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .song-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .song-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .song-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .song-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-music"></i> My AI-Generated Songs</h1>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i> Dark Mode
+            </button>
+        </header>
+
+        <div class="songs-grid">
+            <!-- Song 1 -->
+            <div class="song-card">
+                <div class="song-header">
+                    <input type="text" class="song-title" value="Digital Dreams" spellcheck="false">
+                    <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                </div>
+                
+                <div class="audio-player">
+                    <audio controls>
+                        <source src="songs/King’s Blood (Legacy Cut).wav" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                
+                <button class="lyrics-toggle">
+                    <span>Show Lyrics</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                
+                <div class="lyrics-container">
+                    <div class="lyrics-content">
+                        [CHORUS]
+						King's Blood / pumpin' never drained
+						King's Blood / fire never tamed
+						Raise the crown / feel the planet shake
+						Drums / ignite the frame
+
+						[CHORUS]
+						King's Blood / pumpin' never drained
+						King's Blood / fire never tamed
+						Raise the crown / feel the planet shake
+						Drums / ignite the frame
+
+						[FIRSTBORN]
+						Pressure pumpin' / the first crown is awoken
+						Scoreboard gone platinum / the weak links are all broken
+						Empire on the rise / profits piled high and slick
+						Me and my King rulin' the court / two hounds right in the thick
+						Crown crackdown? // we bring the pain / on this kingdom where we reign
+						Wins stack tall like skylines / shadows on the past tense
+						Hustle ain't whispered / it's a siren / streets feel the royal cadence
+						That King's Blood in the veins / spirit forged from cold concrete
+						Say the name / feel the ground rupture beneath our feet (Grr!)
+
+						[PRE-CHORUS]
+						From the asphalt cradle / to the summit's sharp peak
+						Pressure forged these iron veins / legacy don't speak weak
+
+						[CHORUS]
+						King's Blood / pumpin' never drained
+						King's Blood / fire never tamed
+						Three thrones, one flame / bonded through the hurt and rain
+						That's the bond, the aim / every street now speaks our name
+						Talk power? / Nah, that ain't the game
+						We ARE the reign
+						(That's King's Blood)
+
+						[MIDDLEBORN]
+						Middle King / Sergeant of the cyclone / stay steady
+						His Queen commands the calm beside him / battle-ready
+						Blessings stack / three heirs in the bloodline / a power you can see
+						First born's laugh / that's Emiliano / first of his dynasty
+						Then the twins brought the thunder / Layla and Luca / a new pride for the family
+						From boot camp mud / to royal grounds we're holdin'
+						Puke and rally / war cries turned to golden
+						Roots grip the earth's core / branches hit the blue sky
+						Kingdom calculus / love times hustle means we never die
+
+						[CHORUS]
+						King's Blood / pumpin' never drained
+						King's Blood / fire never tamed
+						Three thrones, one flame / bonded through the hurt and rain
+						That's the bond, the aim / every street now speaks our name
+						Talk power? / Nah, that ain't the game
+						We ARE the reign
+						(That's King's Blood)
+
+						[BRIDGE]
+						Lineage louder / feel it in the chest plate
+						Generations roarin' / pedal down / no red tape
+						Crowns ain't decor / we're the storm they can't escape
+						King's Blood / resilience is the family trait
+
+						[LASTBORN]
+						Last member of the pack / he always be gettin' paid
+						Elementary street-fight lessons / leveled up his grade
+						Youngest blade / sharpened silent / guardian of his domain
+						Him & his Queen / twin engines / the last of us to remain
+						He moves with quiet purpose / a calculated threat
+						Turns every single gamble into "checkmate, set"
+						Two cats prowl as sentries / any burden they can handle
+						That fortress built on trust / no weak spots in the mantle
+
+						[CHORUS]
+						King's Blood / pumpin' never drained
+						King's Blood / fire never tamed
+						Three thrones, one flame / bonded through the hurt and rain
+						That's the bond, the aim / every street now speaks our name
+						Talk power? / Nah, that ain't the game
+						We ARE the reign
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song 2 -->
+            <div class="song-card">
+                <div class="song-header">
+                    <input type="text" class="song-title" value="Diss Track" spellcheck="false">
+                    <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                </div>
+                
+                <div class="audio-player">
+                    <audio controls>
+                        <source src="songs/big-bro-diss-track.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                
+                <button class="lyrics-toggle">
+                    <span>Show Lyrics</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                
+                <div class="lyrics-container">
+                    <div class="lyrics-content">
+                        [Chorus]
+						Left ya big bro on read? Now I’m switchin’ states! 
+						Banging on my door but I done locked the gates! 
+						Only circle back when the numbers turn massive 
+						Missed the build phase, now you thirstin’ for captions
+
+						[Verse 1]
+						Prototype genome—I’m the alpha in the code 
+						Patchwork copies, forever in beta-glitch mode 
+						Two-on-one scrap—thought my crown was theirs for takin’ 
+						Swung once, missed twice—my alarm was still waitin’
+						Tried to Dropped a family record—silence, no mention 
+						Group chat dried up worse than Sam’s engine
+
+						[Chorus]
+						Left ya big bro on read? Now I’m switchin’ states! 
+						Banging on my door but I done locked the gates! 
+						Only circle back when the numbers turn massive 
+						Missed the build phase, now you thirstin’ for captions
+
+						[Verse 2]
+						Your ears goin' deaf like they're made of ceramic 
+						Aint yo body's check engine light been on?—hmm some mechanic 
+						Y’all slept on me, fine—go ahead and press snooze 
+						Don’t flip the story—“I streamed first” is fake news
+						Bars too smart—y’all couldn’t make it to the chorus 
+						Four car pile up—nah that's just Josh in a Taurus 
+						Wastin’ breath—preachin’ to a crowd of agnostics 
+						Song fell off harder than a driveway diagnostic
+						Canceled on my party, "I got double booked plans." 
+						Alright then bro, welcome to the Michaelson clan 
+						Got a dagger to the chest, straight to the hearty 
+						We'll see who gets invited to my next birthday party.
+
+						[Chorus]
+						Left ya big bro on read? Now I’m switchin’ states! 
+						Banging on my door but I done locked the gates! 
+						Only circle back when the numbers turn massive 
+						Missed the build phase, now you thirstin’ for captions
+
+						[Chorus]
+						Left ya big bro on read? Cool—I’m switchin’ states! 
+						Knockin’, but the moat went up—I’m pullin’ the gates 
+						Necks crane up to my crown, whisperin’ lifelong goals 
+						Yall still at my house? Someone call pest control
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song 3 -->
+            <div class="song-card">
+                <div class="song-header">
+                    <input type="text" class="song-title" value="Quantum Love" spellcheck="false">
+                    <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                </div>
+                
+                <div class="audio-player">
+                    <audio controls>
+                        <source src="https://cdn.pixabay.com/download/audio/2021/11/02/audio_8d8b1a4b78.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                
+                <button class="lyrics-toggle">
+                    <span>Show Lyrics</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                
+                <div class="lyrics-container">
+                    <div class="lyrics-content">
+                        [Verse 1]
+                        In the space between the atoms
+                        Where the particles collide
+                        There's a resonance that binds us
+                        On this quantum roller ride
+                        Entangled fates and futures
+                        In a probability sea
+                        But the waveform always collapses
+                        When you're here with me
+                        
+                        [Chorus]
+                        Oh, it's quantum love
+                        Spinning like electrons up above
+                        Through every parallel dimension
+                        You're my only true intention
+                        
+                        [Verse 2]
+                        Uncertainty may haunt us
+                        In this subatomic play
+                        But I'll observe your beauty
+                        And collapse the doubts away
+                        The spin of every moment
+                        Measured in your eyes so deep
+                        Where the mysteries of cosmos
+                        All their secrets keep
+                        
+                        [Bridge]
+                        From the big bang to entropy
+                        Through the vast eternity
+                        In every cosmic strand of fate
+                        You're the one that I await
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Song Template -->
+            <!-- 
+            <div class="song-card">
+                <div class="song-header">
+                    <input type="text" class="song-title" value="New Song Title" spellcheck="false">
+                    <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                </div>
+                
+                <div class="audio-player">
+                    <audio controls>
+                        <source src="AUDIO_URL_HERE" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                
+                <button class="lyrics-toggle">
+                    <span>Show Lyrics</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                
+                <div class="lyrics-container">
+                    <div class="lyrics-content">
+                        LYRICS_HERE
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+
+        <footer>
+            <p>Created with ❤️ | Showcasing AI-generated songs from Suno</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or respect OS preference
+        if (localStorage.getItem('theme') === 'dark' || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme'))) {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Lyrics toggle functionality
+        document.querySelectorAll('.lyrics-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const lyricsContainer = toggle.nextElementSibling;
+                lyricsContainer.classList.toggle('active');
+                toggle.classList.toggle('active');
+                
+                if (toggle.classList.contains('active')) {
+                    toggle.querySelector('span').textContent = 'Hide Lyrics';
+                } else {
+                    toggle.querySelector('span').textContent = 'Show Lyrics';
+                }
+            });
+        });
+        
+        // Edit song title functionality
+        document.querySelectorAll('.edit-icon').forEach(icon => {
+            icon.addEventListener('click', () => {
+                const titleInput = icon.previousElementSibling;
+                titleInput.focus();
+                titleInput.select();
+            });
+        });
+        
+        // Make song titles editable on double-click
+        document.querySelectorAll('.song-title').forEach(title => {
+            title.addEventListener('dblclick', () => {
+                title.focus();
+                title.select();
+            });
+        });
+    </script>
+</body>
+</html>
