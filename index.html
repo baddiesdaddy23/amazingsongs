@@ -482,7 +482,12 @@
             box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.5);
         }
 
-        .edit-icon {
+        .song-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-icon {
             color: #aaa;
             cursor: pointer;
             font-size: 1.2rem;
@@ -496,13 +501,21 @@
             justify-content: center;
         }
 
+        .action-icon:hover {
+            background: rgba(108, 99, 255, 0.1);
+        }
+        
         .edit-icon:hover {
             color: var(--primary-color);
-            background: rgba(108, 99, 255, 0.1);
             transform: rotate(15deg);
         }
+        
+        .delete-icon:hover {
+            color: #ff5252;
+            transform: scale(1.1);
+        }
 
-        .dark-mode .edit-icon:hover {
+        .dark-mode .action-icon:hover {
             background: rgba(108, 99, 255, 0.2);
         }
 
@@ -985,6 +998,32 @@
             cursor: pointer;
         }
 
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4cd97b;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+        }
+        
+        .success-message.show {
+            transform: translateX(0);
+        }
+        
+        .success-message i {
+            font-size: 1.5rem;
+        }
+
         /* Responsive design */
         @media (max-width: 992px) {
             .hero h1 {
@@ -1143,7 +1182,7 @@
         .song-card:nth-child(1) { animation-delay: 0.1s; }
         .song-card:nth-child(2) { animation-delay: 0.2s; }
         .song-card:nth-child(3) { animation-delay: 0.3s; }
-        .song-card:nth-child(4) { animation-delay: 0.4s; }
+        .song-card:nth-child(4). { animation-delay: 0.4s; }
         .song-card:nth-child(5) { animation-delay: 0.5s; }
         
         @keyframes shake {
@@ -1159,12 +1198,10 @@
 </head>
 <body>
     <div class="container">
-        <!-- Mobile Menu Button -->
         <button class="mobile-menu-btn" id="mobileMenuBtn">
             <i class="fas fa-bars"></i>
         </button>
 
-        <!-- Header -->
         <header>
             <a href="#" class="logo">
                 <i class="fas fa-headphones-alt"></i>
@@ -1176,9 +1213,7 @@
             </button>
         </header>
         
-        <!-- Hero Section -->
         <section class="hero">
-            <!-- Floating Music Notes -->
             <div class="floating-note"><i class="fas fa-music"></i></div>
             <div class="floating-note"><i class="fas fa-music"></i></div>
             <div class="floating-note"><i class="fas fa-music"></i></div>
@@ -1199,7 +1234,6 @@
             </div>
         </section>
         
-        <!-- Genre Tabs -->
         <div class="genre-tabs">
             <button class="genre-tab pump-up active" data-tab="featured">
                 <i class="fas fa-star"></i> Featured
@@ -1228,9 +1262,11 @@
             <button class="genre-tab pump-up" data-tab="pump-up">
                 <i class="fas fa-dumbbell"></i> Pump Up
             </button>
+            <button class="genre-tab" data-tab="upload">
+                <i class="fas fa-upload"></i> Upload
+            </button>
         </div>
         
-        <!-- Password Modal -->
         <div class="password-modal" id="passwordModal">
             <div class="password-box">
                 <h2>Enter Password</h2>
@@ -1239,93 +1275,153 @@
                 <button class="password-submit" id="passwordSubmit">Unlock</button>
             </div>
         </div>
+        
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <span>Song uploaded successfully!</span>
+        </div>
 
-        <!-- Featured Tab -->
         <div class="tab-content active" id="featured">
             <div class="section-header">
                 <h2>Featured Songs</h2>
                 <p>Top picks from David's AI-generated collection</p>
             </div>
             <div class="songs-grid" id="featured-songs">
-                <!-- Songs will be loaded dynamically -->
+                </div>
+        </div>
+        
+        <div class="tab-content" id="girlie-pop">
+            <div class="section-header">
+                <h2>Girlie Pop</h2>
+            </div>
+            <div class="songs-grid" id="girlie-pop-songs">
+            </div>
+        </div>
+        <div class="tab-content" id="in-my-feels">
+            <div class="section-header">
+                <h2>In My Feels</h2>
+            </div>
+            <div class="songs-grid" id="in-my-feels-songs">
+            </div>
+        </div>
+        <div class="tab-content" id="nerdy">
+            <div class="section-header">
+                <h2>Nerdy</h2>
+            </div>
+            <div class="songs-grid" id="nerdy-songs">
+            </div>
+        </div>
+        <div class="tab-content" id="shake-dat-ass">
+            <div class="section-header">
+                <h2>Shake Dat Ass</h2>
+            </div>
+            <div class="songs-grid" id="shake-dat-ass-songs">
+            </div>
+        </div>
+        <div class="tab-content" id="honky-tonk">
+            <div class="section-header">
+                <h2>Honky Tonk</h2>
+            </div>
+            <div class="songs-grid" id="honky-tonk-songs">
+            </div>
+        </div>
+        <div class="tab-content" id="lets-smile">
+            <div class="section-header">
+                <h2>Let's Smile</h2>
+            </div>
+            <div class="songs-grid" id="lets-smile-songs">
+            </div>
+        </div>
+        <div class="tab-content" id="musica">
+            <div class="section-header">
+                <h2>Musica</h2>
+            </div>
+            <div class="songs-grid" id="musica-songs">
+            </div>
+        </div>
+        <div class="tab-content" id="pump-up">
+            <div class="section-header">
+                <h2>Pump Up</h2>
+            </div>
+            <div class="songs-grid" id="pump-up-songs">
             </div>
         </div>
 
-        <!-- Gallery View -->
+
         <div class="gallery-view" id="gallery-view">
             <div class="section-header">
                 <h2>All Songs</h2>
                 <p>Complete collection of AI-generated music</p>
             </div>
             <div class="gallery-grid" id="gallery-grid">
-                <!-- Gallery items will be populated by JavaScript -->
-            </div>
+                </div>
         </div>
         
-        <!-- Upload Section -->
-        <div class="upload-section">
-            <div class="upload-header">
+        <div class="tab-content" id="upload">
+            <div class="section-header">
                 <h2>Upload New Song</h2>
                 <p>Add your AI-generated music to the showcase</p>
             </div>
-            <form class="upload-form" id="songUploadForm">
-                <div class="form-group">
-                    <label for="songTitle">Song Title</label>
-                    <input type="text" id="songTitle" class="form-input" placeholder="Enter song title" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="songGenre">Genre</label>
-                    <select id="songGenre" class="form-input" required>
-                        <option value="">Select a genre</option>
-                        <option value="Pump Up">Pump Up</option>
-                        <option value="Girlie Pop">Girlie Pop</option>
-                        <option value="In My Feels">In My Feels</option>
-                        <option value="Nerdy">Nerdy</option>
-                        <option value="Shake Dat Ass">Shake Dat Ass</option>
-                        <option value="Honky Tonk">Honky Tonk</option>
-                        <option value="Let's Smile">Let's Smile</option>
-                        <option value="Musica">Musica</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="songFile">MP3 File</label>
-                    <div class="file-upload">
-                        <input type="file" id="songFile" class="file-upload-input" accept=".mp3" required>
-                        <label for="songFile" class="file-upload-label">
-                            <i class="fas fa-file-audio"></i> Choose MP3 File
-                        </label>
+            <div class="upload-section">
+                <form class="upload-form" id="songUploadForm">
+                    <div class="form-group">
+                        <label for="songTitle">Song Title</label>
+                        <input type="text" id="songTitle" class="form-input" placeholder="Enter song title" required>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="songLyrics">Lyrics</label>
-                    <textarea id="songLyrics" class="form-input form-textarea" placeholder="Paste song lyrics here..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="songCover">Cover Art (Optional)</label>
-                    <div class="file-upload">
-                        <input type="file" id="songCover" class="file-upload-input" accept="image/*">
-                        <label for="songCover" class="file-upload-label">
-                            <i class="fas fa-image"></i> Choose Cover Image
-                        </label>
+                    
+                    <div class="form-group">
+                        <label for="songGenre">Genre</label>
+                        <select id="songGenre" class="form-input" required>
+                            <option value="">Select a genre</option>
+                            <option value="Pump Up">Pump Up</option>
+                            <option value="Girlie Pop">Girlie Pop</option>
+                            <option value="In My Feels">In My Feels</option>
+                            <option value="Nerdy">Nerdy</option>
+                            <option value="Shake Dat Ass">Shake Dat Ass</option>
+                            <option value="Honky Tonk">Honky Tonk</option>
+                            <option value="Let's Smile">Let's Smile</option>
+                            <option value="Musica">Musica</option>
+                        </select>
                     </div>
-                    <div id="coverPreview" class="cover-preview">
-                        <p>Cover preview will appear here</p>
+                    
+                    <div class="form-group">
+                        <label for="songFile">MP3 File</label>
+                        <div class="file-upload">
+                            <input type="file" id="songFile" class="file-upload-input" accept=".mp3" required>
+                            <label for="songFile" class="file-upload-label">
+                                <i class="fas fa-file-audio"></i> <span>Choose MP3 File</span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="uploadPassword">Upload Password</label>
-                    <input type="password" id="uploadPassword" class="form-input" placeholder="Enter upload password" required>
-                </div>
-                
-                <button type="submit" class="form-submit">
-                    <i class="fas fa-upload"></i> Upload Song
-                </button>
-            </form>
+                    
+                    <div class="form-group">
+                        <label for="songLyrics">Lyrics</label>
+                        <textarea id="songLyrics" class="form-input form-textarea" placeholder="Paste song lyrics here..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="songCover">Cover Art (Optional)</label>
+                        <div class="file-upload">
+                            <input type="file" id="songCover" class="file-upload-input" accept="image/*">
+                            <label for="songCover" class="file-upload-label">
+                                <i class="fas fa-image"></i> <span>Choose Cover Image</span>
+                            </label>
+                        </div>
+                        <div id="coverPreview" class="cover-preview">
+                            <p>Cover preview will appear here</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="uploadPassword">Upload Password</label>
+                        <input type="password" id="uploadPassword" class="form-input" placeholder="Enter upload password" required>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">
+                        <i class="fas fa-upload"></i> Upload Song
+                    </button>
+                </form>
+            </div>
         </div>
         
         <footer>
@@ -1344,7 +1440,6 @@
         const themeIcon = themeToggle.querySelector('i');
         const themeText = themeToggle.querySelector('span');
         
-        // Check for saved theme preference or respect OS preference
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const storedTheme = localStorage.getItem('theme');
         
@@ -1368,23 +1463,18 @@
             }
         });
         
-        // Audio playback manager
         let currentPlayingAudio = null;
         
-        // Event delegation for audio playback
         document.body.addEventListener('play', (e) => {
             if (e.target.tagName === 'AUDIO') {
-                // Pause currently playing audio if different
                 if (currentPlayingAudio && currentPlayingAudio !== e.target) {
                     currentPlayingAudio.pause();
                 }
                 currentPlayingAudio = e.target;
             }
-        }, true); // Use capture phase to ensure we catch all play events
+        }, true);
 
-        // Lyrics toggle and edit icon functionality
         document.addEventListener('click', (e) => {
-            // Lyrics toggle
             if (e.target.closest('.lyrics-toggle')) {
                 const toggleBtn = e.target.closest('.lyrics-toggle');
                 const lyricsContainer = toggleBtn.nextElementSibling;
@@ -1401,57 +1491,70 @@
                 }
             }
             
-            // Edit icon
             if (e.target.closest('.edit-icon')) {
                 const editIcon = e.target.closest('.edit-icon');
                 const songTitleInput = editIcon.previousElementSibling;
                 songTitleInput.focus();
                 songTitleInput.select();
             }
+            
+            if (e.target.closest('.delete-icon')) {
+                const deleteIcon = e.target.closest('.delete-icon');
+                const songCard = deleteIcon.closest('.song-card');
+                const songId = parseInt(songCard.dataset.id);
+                
+                if (confirm('Are you sure you want to delete this song?')) {
+                    songs = songs.filter(song => song.id !== songId);
+                    renderAllSongs();
+                }
+            }
         });
         
-        // Tab switching functionality
         const tabs = document.querySelectorAll('.genre-tab');
         const tabContents = document.querySelectorAll('.tab-content');
+        
+        const genreColors = {
+            'featured': { primary: '#6c63ff', secondary: '#ff7b9c' },
+            'girlie-pop': { primary: '#ff9ecf', secondary: '#ffc2e0' },
+            'in-my-feels': { primary: '#8a89c0', secondary: '#a6a5d8' },
+            'nerdy': { primary: '#5bc0eb', secondary: '#89d6fb' },
+            'shake-dat-ass': { primary: '#ff6b6b', secondary: '#ff9e9e' },
+            'honky-tonk': { primary: '#f9a825', secondary: '#fbc02d' },
+            'lets-smile': { primary: '#4cd97b', secondary: '#80ed99' },
+            'musica': { primary: '#ff9a3c', secondary: '#ffb74d' },
+            'pump-up': { primary: '#ff5252', secondary: '#ff7b7b' },
+            'upload': { primary: '#6c63ff', secondary: '#ff7b9c' }
+        };
         
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const tabId = tab.dataset.tab;
                 
-                // Hide gallery view when switching tabs
                 document.getElementById('gallery-view').classList.remove('active');
                 
-                // Update tabs
-                tabs.forEach(t => {
-                    if (t.dataset.tab === tabId) {
-                        t.classList.add('active');
-                    } else {
-                        t.classList.remove('active');
-                    }
-                });
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
                 
-                // Update tab contents
-                tabContents.forEach(content => {
-                    if (content.id === tabId) {
-                        content.classList.add('active');
-                    } else {
-                        content.classList.remove('active');
-                    }
-                });
+                tabContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+                
+                if (genreColors[tabId]) {
+                    document.documentElement.style.setProperty('--primary-color', genreColors[tabId].primary);
+                    document.documentElement.style.setProperty('--secondary-color', genreColors[tabId].secondary);
+                }
             });
         });
         
-        // Initialize with featured tab active
         document.querySelector('.genre-tab[data-tab="featured"]').classList.add('active');
         document.getElementById('featured').classList.add('active');
         
-        // Gallery view functionality
         const galleryView = document.getElementById('gallery-view');
         const galleryGrid = galleryView.querySelector('.gallery-grid');
         const btnGallery = document.querySelector('.btn-gallery');
         const btnListen = document.querySelector('.btn-listen');
         
-        // Sample song data
+        const successMessage = document.getElementById('successMessage');
+        
         let songs = [
             { 
                 id: 1,
@@ -1485,48 +1588,41 @@
             }
         ];
         
-        // Function to render a song card
         function renderSongCard(song) {
             const genreClass = `${song.genre.toLowerCase().replace(/\s+/g, '-')}-card`;
-            
             return `
-                <div class="song-card ${genreClass}">
+                <div class="song-card ${genreClass}" data-id="${song.id}">
                     <div class="song-header">
                         <input type="text" class="song-title" value="${song.title}" spellcheck="false">
-                        <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                        <div class="song-actions">
+                            <i class="fas fa-edit edit-icon" title="Edit title"></i>
+                            <i class="fas fa-trash delete-icon" title="Delete song"></i>
+                        </div>
                     </div>
-                    
                     <div class="audio-player">
                         <audio controls class="audio-player-element">
                             <source src="${song.filename}" type="audio/mpeg">
                             Your browser does not support the audio element.
                         </audio>
                     </div>
-                    
                     <div class="song-meta">
                         <span>0:00 / ${song.duration}</span>
                         <span>${song.genre}</span>
                     </div>
-                    
                     <button class="lyrics-toggle">
                         <span>Show Lyrics</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
-                    
                     <div class="lyrics-container">
-                        <div class="lyrics-content">
-                            ${song.lyrics}
-                        </div>
+                        <div class="lyrics-content">${song.lyrics}</div>
                     </div>
-                </div>
-            `;
+                </div>`;
         }
         
-        // Function to render a gallery item
         function renderGalleryItem(song) {
             const colorVar = song.genre.toLowerCase().replace(/\s+/g, '-');
             return `
-                <div class="gallery-song">
+                <div class="gallery-song" data-id="${song.id}">
                     <div class="gallery-song-thumb" style="background: linear-gradient(135deg, var(--${colorVar}), rgba(0,0,0,0.2))">
                         <i class="fas fa-music"></i>
                     </div>
@@ -1537,64 +1633,52 @@
                             <div>${song.genre}</div>
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
         }
-        
-        // Function to render featured songs
-        function renderFeaturedSongs() {
-            const featuredSongsGrid = document.getElementById('featured-songs');
-            featuredSongsGrid.innerHTML = '';
-            
-            const featuredSongs = songs.filter(song => song.featured);
-            featuredSongs.forEach(song => {
-                featuredSongsGrid.innerHTML += renderSongCard(song);
-            });
-        }
-        
-        // Function to render gallery
-        function renderGallery() {
+
+        function renderAllSongs() {
+            // Clear all grids first
+            document.querySelectorAll('.songs-grid').forEach(grid => grid.innerHTML = '');
             galleryGrid.innerHTML = '';
+            
             songs.forEach(song => {
+                // Render in its genre tab
+                const genreId = song.genre.toLowerCase().replace(/\s+/g, '-');
+                const genreGrid = document.getElementById(`${genreId}-songs`);
+                if (genreGrid) {
+                    genreGrid.innerHTML += renderSongCard(song);
+                }
+
+                // Render in featured if applicable
+                if (song.featured) {
+                    document.getElementById('featured-songs').innerHTML += renderSongCard(song);
+                }
+
+                // Render in gallery
                 galleryGrid.innerHTML += renderGalleryItem(song);
             });
         }
         
-        // Initialize songs
-        renderFeaturedSongs();
-        renderGallery();
+        renderAllSongs();
         
-        // Gallery button functionality
         btnGallery.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Hide all tab contents
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all tabs
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show gallery view
+            tabContents.forEach(content => content.classList.remove('active'));
+            tabs.forEach(tab => tab.classList.remove('active'));
             galleryView.classList.add('active');
-            
-            // Scroll to gallery
             galleryView.scrollIntoView({ behavior: 'smooth' });
         });
         
-        // Listen button functionality
         btnListen.addEventListener('click', (e) => {
             e.preventDefault();
+            document.querySelector('.genre-tab[data-tab="featured"]').click();
             document.getElementById('featured').scrollIntoView({ behavior: 'smooth' });
         });
         
-        // Cover art preview
         const coverInput = document.getElementById('songCover');
         const coverPreview = document.getElementById('coverPreview');
-        
+        const coverLabel = coverInput.nextElementSibling.querySelector('span');
+
         coverInput.addEventListener('change', function(e) {
             const file = this.files[0];
             if (file) {
@@ -1603,86 +1687,109 @@
                     coverPreview.style.backgroundImage = `url(${event.target.result})`;
                     coverPreview.style.backgroundSize = 'cover';
                     coverPreview.innerHTML = '';
+                    coverLabel.textContent = file.name;
                 }
                 reader.readAsDataURL(file);
             }
         });
-        
-        // Song upload form
+
+        const songFileInput = document.getElementById('songFile');
+        const songFileLabel = songFileInput.nextElementSibling.querySelector('span');
+        songFileInput.addEventListener('change', function(e) {
+            if (this.files.length > 0) {
+                songFileLabel.textContent = this.files[0].name;
+            }
+        });
+
         const songForm = document.getElementById('songUploadForm');
-        
-        // Password for uploads
         const UPLOAD_PASSWORD = "david123";
         
         songForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form values
             const title = document.getElementById('songTitle').value;
             const genre = document.getElementById('songGenre').value;
             const lyrics = document.getElementById('songLyrics').value;
             const password = document.getElementById('uploadPassword').value;
-            const fileInput = document.getElementById('songFile');
-            const coverInput = document.getElementById('songCover');
             
-            // Verify password
             if (password !== UPLOAD_PASSWORD) {
-                alert("Incorrect upload password. Please try again.");
+                alert("Unauthorized Access. David will be notified");
                 return;
             }
             
-            // Create a fake duration for demo
             const duration = `${Math.floor(Math.random() * 3) + 1}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`;
             
-            // Create song object
             const newSong = {
                 id: songs.length + 1,
                 title,
                 genre,
                 duration,
-                filename: URL.createObjectURL(fileInput.files[0]),
+                filename: URL.createObjectURL(songFileInput.files[0]),
                 lyrics,
                 cover: coverInput.files.length ? URL.createObjectURL(coverInput.files[0]) : '',
-                featured: true
+                featured: false // New songs are not featured by default
             };
             
-            // Add to songs array
             songs.unshift(newSong);
-            
-            // Update UI
-            renderFeaturedSongs();
-            renderGallery();
-            
-            // Reset form
+            renderAllSongs();
+            showSuccessMessage();
             songForm.reset();
             coverPreview.style.backgroundImage = '';
             coverPreview.innerHTML = '<p>Cover preview will appear here</p>';
-            
-            // Show success message
-            alert(`"${title}" has been added to the showcase!`);
-        });
-        
-        // Also handle when user clicks on gallery items
-        galleryGrid.addEventListener('click', (e) => {
-            const songCard = e.target.closest('.gallery-song');
-            if (songCard) {
-                const title = songCard.querySelector('.gallery-song-title').textContent;
-                alert(`Now playing: ${title}`);
+            songFileLabel.textContent = 'Choose MP3 File';
+            coverLabel.textContent = 'Choose Cover Image';
+
+            // Switch to the genre tab of the newly uploaded song
+            const genreTab = document.querySelector(`.genre-tab[data-tab="${genre.toLowerCase().replace(/\s+/g, '-')}"]`);
+            if(genreTab) {
+                genreTab.click();
             }
         });
         
-        // Mobile menu toggle
+        function showSuccessMessage() {
+            successMessage.classList.add('show');
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+        }
+        
+        galleryGrid.addEventListener('click', (e) => {
+            const songCard = e.target.closest('.gallery-song');
+            if (songCard) {
+                const songId = parseInt(songCard.dataset.id);
+                const song = songs.find(s => s.id === songId);
+                if (song) {
+                    const genreId = song.genre.toLowerCase().replace(/\s+/g, '-');
+                    const genreTab = document.querySelector(`.genre-tab[data-tab="${genreId}"]`);
+                    if(genreTab) {
+                        genreTab.click();
+                    }
+                    
+                    setTimeout(() => {
+                        const audioElement = document.querySelector(`.song-card[data-id="${songId}"] audio`);
+                        if (audioElement) {
+                           const cardToScroll = audioElement.closest('.song-card');
+                           cardToScroll.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                           audioElement.play();
+                        }
+                    }, 50);
+                }
+            }
+        });
+        
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         mobileMenuBtn.addEventListener('click', () => {
             document.querySelector('.genre-tabs').classList.toggle('mobile-visible');
         });
         
-        // Hide mobile menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.genre-tabs') && !e.target.closest('#mobileMenuBtn')) {
                 document.querySelector('.genre-tabs').classList.remove('mobile-visible');
             }
         });
+        
+        document.documentElement.style.setProperty('--primary-color', genreColors['featured'].primary);
+        document.documentElement.style.setProperty('--secondary-color', genreColors['featured'].secondary);
     });
     </script>
 </body>
