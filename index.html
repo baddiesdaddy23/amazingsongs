@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beats by David - Music Showcase</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Beats by David - Music Showcase</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
         :root {
             --primary-color: #6c63ff;
             --secondary-color: #ff7b9c;
@@ -21,13 +22,13 @@
             --lyrics-max-height: 400px;
             
             /* Genre colors */
-            --girlie-pop: #ff9ecf;
-            --in-my-feels: #8a89c0;
+            --pop: #ff9ecf;
+            --emotional: #8a89c0;
             --nerdy: #5bc0eb;
-            --shake-dat-ass: #ff6b6b;
-            --honky-tonk: #f9a825;
+            --dance: #ff6b6b;
+            --country: #f9a825;
             --lets-smile: #4cd97b;
-            --musica: #ff9a3c;
+            --Spanish: #ff9a3c;
             --pump-up: #ff5252;
         }
 
@@ -323,13 +324,13 @@
             font-size: 1.1rem;
         }
 
-        .genre-tab.girlie-pop.active { background: var(--girlie-pop); }
-        .genre-tab.in-my-feels.active { background: var(--in-my-feels); }
+        .genre-tab.pop.active { background: var(--pop); }
+        .genre-tab.in-my-feels.active { background: var(--emotional); }
         .genre-tab.nerdy.active { background: var(--nerdy); }
-        .genre-tab.shake-dat-ass.active { background: var(--shake-dat-ass); }
-        .genre-tab.honky-tonk.active { background: var(--honky-tonk); }
+        .genre-tab.shake-dat-ass.active { background: var(--dance); }
+        .genre-tab.honky-tonk.active { background: var(--country); }
         .genre-tab.lets-smile.active { background: var(--lets-smile); }
-        .genre-tab.musica.active { background: var(--musica); }
+        .genre-tab.musica.active { background: var(--Spanish); }
         .genre-tab.pump-up.active { background: var(--pump-up); }
         
         .genre-tab.locked {
@@ -427,13 +428,13 @@
         }
 
         /* Genre-specific card accents */
-        .girlie-pop-card::before { background: linear-gradient(90deg, var(--girlie-pop), #ffc2e0); }
-        .in-my-feels-card::before { background: linear-gradient(90deg, var(--in-my-feels), #a6a5d8); }
+        .pop-card::before { background: linear-gradient(90deg, var(--pop), #ffc2e0); }
+        .in-my-feels-card::before { background: linear-gradient(90deg, var(--emotional), #a6a5d8); }
         .nerdy-card::before { background: linear-gradient(90deg, var(--nerdy), #89d6fb); }
-        .shake-dat-ass-card::before { background: linear-gradient(90deg, var(--shake-dat-ass), #ff9e9e); }
-        .honky-tonk-card::before { background: linear-gradient(90deg, var(--honky-tonk), #fbc02d); }
+        .shake-dat-ass-card::before { background: linear-gradient(90deg, var(--dance), #ff9e9e); }
+        .honky-tonk-card::before { background: linear-gradient(90deg, var(--country), #fbc02d); }
         .lets-smile-card::before { background: linear-gradient(90deg, var(--lets-smile), #80ed99); }
-        .musica-card::before { background: linear-gradient(90deg, var(--musica), #ffb74d); }
+        .musica-card::before { background: linear-gradient(90deg, var(--Spanish), #ffb74d); }
         .pump-up-card::before { background: linear-gradient(90deg, var(--pump-up), #ff7b7b); }
 
         .song-card:hover {
@@ -966,102 +967,97 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-
-        <header>
-            <a href="#" class="logo">
-                <i class="fas fa-headphones-alt"></i>
-                <span>Beats by David</span>
-            </a>
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i> 
-                <span>Dark Mode</span>
-            </button>
-        </header>
-        
-        <section class="hero">
-            <div class="floating-note"><i class="fas fa-music"></i></div>
-            <div class="floating-note"><i class="fas fa-music"></i></div>
-            <div class="floating-note"><i class="fas fa-music"></i></div>
-            <div class="floating-note"><i class="fas fa-music"></i></div>
-            <div class="floating-note"><i class="fas fa-music"></i></div>
-            
-            <div class="hero-content">
-                <h1>Experience the Future of Music</h1>
-                <p>David's generated beats that push creative boundaries and redefine what's possible in music production</p>
-                <div class="hero-btns">
-                    <a href="#featured" class="btn btn-primary btn-listen">
-                        <i class="fas fa-play"></i> Listen Now
+<div class="container">
+<button class="mobile-menu-btn" id="mobileMenuBtn">
+<i class="fas fa-bars"></i>
+</button>
+<header>
+<a class="logo" href="#">
+<i class="fas fa-headphones-alt"></i>
+<span>Beats by David</span>
+</a>
+<button class="theme-toggle" id="themeToggle">
+<i class="fas fa-moon"></i>
+<span>Dark Mode</span>
+</button>
+</header>
+<section class="hero">
+<div class="floating-note"><i class="fas fa-music"></i></div>
+<div class="floating-note"><i class="fas fa-music"></i></div>
+<div class="floating-note"><i class="fas fa-music"></i></div>
+<div class="floating-note"><i class="fas fa-music"></i></div>
+<div class="floating-note"><i class="fas fa-music"></i></div>
+<div class="hero-content">
+<h1>Experience the Future of Music</h1>
+<p>David's generated beats that push creative boundaries and redefine what's possible in music production</p>
+<div class="hero-btns">
+<a class="btn btn-primary btn-listen" href="#featured">
+<i class="fas fa-play"></i> Listen Now
                     </a>
-                    <a href="#coming-soon" class="btn btn-secondary">
-                        <i class="fas fa-calendar"></i> Coming Soon
+<a class="btn btn-secondary" href="#coming-soon">
+<i class="fas fa-calendar"></i> Coming Soon
                     </a>
-                </div>
-            </div>
-        </section>
-        
-        <div class="genre-tabs">
-            <button class="genre-tab pump-up active" data-tab="featured">
-                <i class="fas fa-star"></i> Featured
+</div>
+</div>
+</section>
+<div class="genre-tabs">
+<button class="genre-tab hiphop active" data-tab="featured">
+<i class="fas fa-star"></i> Featured
             </button>
-            <button class="genre-tab girlie-pop" data-tab="girlie-pop">
-                <i class="fas fa-heart"></i> Girlie Pop
+<button class="genre-tab pop" data-tab="pop">
+<i class="fas fa-heart"></i> Pop
             </button>
-            <button class="genre-tab in-my-feels" data-tab="in-my-feels">
-                <i class="fas fa-cloud"></i> In My Feels
+<button class="genre-tab rnb" data-tab="rnb">
+<i class="fas fa-cloud"></i> In My Feels
             </button>
-            <button class="genre-tab nerdy" data-tab="nerdy">
-                <i class="fas fa-chess"></i> Nerdy
+<button class="genre-tab electronic" data-tab="electronic">
+<i class="fas fa-chess"></i> Electronic
             </button>
-            <button class="genre-tab shake-dat-booty" data-tab="shake-dat-booty">
-                <i class="fas fa-music"></i> Shake Dat Booty
+<button class="genre-tab dance" data-tab="dance">
+<i class="fas fa-music"></i> Dance
             </button>
-            <button class="genre-tab honky-tonk" data-tab="honky-tonk">
-                <i class="fas fa-guitar"></i> Honky Tonk
+<button class="genre-tab country" data-tab="country">
+<i class="fas fa-guitar"></i> Country
             </button>
-            <button class="genre-tab lets-smile" data-tab="lets-smile">
-                <i class="fas fa-sun"></i> Let's Smile
+<button class="genre-tab happy" data-tab="happy">
+<i class="fas fa-sun"></i> Happy
             </button>
-            <button class="genre-tab musica" data-tab="musica">
-                <i class="fas fa-globe-americas"></i> Musica
+<button class="genre-tab world" data-tab="world">
+<i class="fas fa-globe-americas"></i> Spanish
             </button>
-            <button class="genre-tab pump-up" data-tab="pump-up">
-                <i class="fas fa-dumbbell"></i> Pump Up
+<button class="genre-tab hiphop" data-tab="hiphop">
+<i class="fas fa-dumbbell"></i> Pump Up
             </button>
-        </div>
-        
-        <div class="tab-content active" id="featured">
-            <div class="section-header">
-                <h2>Featured Songs</h2>
-                <p>Top picks from David's collection</p>
-            </div>
-            <div class="songs-grid" id="featured-songs">
-                <div class="song-card pump-up-card" data-id="1">
-                    <div class="song-header">
-                        <input type="text" class="song-title" value="King's Blood (Legacy Cut)" spellcheck="false">
-                        <div class="song-actions">
-                            <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                        </div>
-                    </div>
-                    <div class="audio-player">
-                        <audio controls class="audio-player-element">
-                            <source src="songs/kings-blood.mp3" type="audio/mpeg">
+</div>
+<div class="tab-content active" id="featured">
+<div class="section-header">
+<h2>Featured Songs</h2>
+<p>Top picks from David's collection</p>
+</div>
+<div class="songs-grid" id="featured-songs">
+<div class="song-card hiphop-card" data-id="1">
+<div class="song-header">
+<input class="song-title" spellcheck="false" type="text" value="King's Blood (Legacy Cut)"/>
+<div class="song-actions">
+<i class="fas fa-edit edit-icon" title="Edit title"></i>
+</div>
+</div>
+<div class="audio-player">
+<audio class="audio-player-element" controls="">
+<source src="songs/kings-blood.mp3" type="audio/mpeg"/>
                             Your browser does not support the audio element.
                         </audio>
-                    </div>
-                    <div class="song-meta">
-                        <span>0:00 / 3:01</span>
-                        <span>Pump Up</span>
-                    </div>
-                    <button class="lyrics-toggle">
-                        <span>Show Lyrics</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="lyrics-container">
-                        <div class="lyrics-content">
+</div>
+<div class="song-meta">
+<span>0:00 / 3:01</span>
+<span>Hiphop</span>
+</div>
+<button class="lyrics-toggle">
+<span>Show Lyrics</span>
+<i class="fas fa-chevron-down"></i>
+</button>
+<div class="lyrics-container">
+<div class="lyrics-content">
                             [CHORUS]
                             King's Blood / pumpin' never drained
                             King's Blood / fire never tamed
@@ -1128,7 +1124,7 @@
                             Last member of the pack he always be gettin' paid
                             Elementary street-fight lessons leveled up his grade
                             Youngest blade / sharpened silent guardian of his domain
-                            Him & his Queen / twin engines the last of us to remain
+                            Him &amp; his Queen / twin engines the last of us to remain
                             He moves with quiet purpose a calculated threat
                             Turns every single gamble into "checkmate, set"
                             Two cats prowl as sentries any burden they can handle
@@ -1141,32 +1137,31 @@
                             That's the bond, the aim every street now speaks our name
                             Talk power? Nah, that ain't the game
                             We ARE the reign</div>
-                    </div>
-                </div>
-                
-                <div class="song-card pump-up-card" data-id="2">
-                    <div class="song-header">
-                        <input type="text" class="song-title" value="Big Bro Diss Track" spellcheck="false">
-                        <div class="song-actions">
-                            <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                        </div>
-                    </div>
-                    <div class="audio-player">
-                        <audio controls class="audio-player-element">
-                            <source src="songs/big-bro-diss-track.mp3" type="audio/mpeg">
+</div>
+</div>
+<div class="song-card hiphop-card" data-id="2">
+<div class="song-header">
+<input class="song-title" spellcheck="false" type="text" value="Big Bro Diss Track"/>
+<div class="song-actions">
+<i class="fas fa-edit edit-icon" title="Edit title"></i>
+</div>
+</div>
+<div class="audio-player">
+<audio class="audio-player-element" controls="">
+<source src="songs/big-bro-diss-track.mp3" type="audio/mpeg"/>
                             Your browser does not support the audio element.
                         </audio>
-                    </div>
-                    <div class="song-meta">
-                        <span>0:00 / 2:36</span>
-                        <span>Pump Up</span>
-                    </div>
-                    <button class="lyrics-toggle">
-                        <span>Show Lyrics</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="lyrics-container">
-                        <div class="lyrics-content">
+</div>
+<div class="song-meta">
+<span>0:00 / 2:36</span>
+<span>Hiphop</span>
+</div>
+<button class="lyrics-toggle">
+<span>Show Lyrics</span>
+<i class="fas fa-chevron-down"></i>
+</button>
+<div class="lyrics-container">
+<div class="lyrics-content">
                             [Chorus]
                             Left ya big bro on read? Now I’m switchin’ states! 
                             Banging on my door but I done locked the gates! 
@@ -1217,370 +1212,184 @@
                             Knockin’, but the moat went up—I’m pullin’ the gates 
                             Necks crane up to my crown, whisperin’ lifelong goals 
                             Yall still at my house? Someone call pest control</div>
-                    </div>
-                </div>
-                
-                <div class="song-card girlie-pop-card" data-id="3">
-                    <div class="song-header">
-                        <input type="text" class="song-title" value="S.M.U.T" spellcheck="false">
-                        <div class="song-actions">
-                            <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                        </div>
-                    </div>
-                    <div class="audio-player">
-                        <audio controls class="audio-player-element">
-                            <source src="songs/smut.mp3" type="audio/mpeg">
+</div>
+</div>
+
+</div>
+</div>
+<div class="tab-content" id="pop">
+<div class="section-header">
+<h2>Pop</h2>
+<p>Upbeat and catchy pop anthems</p>
+</div>
+<div class="songs-grid" id="pop-songs">
+
+</div>
+</div>
+<div class="tab-content" id="rnb">
+<div class="section-header">
+<h2>Rnb</h2>
+<p>Emotional and introspective tracks</p>
+</div>
+<div class="songs-grid" id="in-my-feels-songs">
+<!-- Coming soon placeholder -->
+</div>
+</div>
+<div class="tab-content" id="electronic">
+<div class="section-header">
+<h2>Electronic</h2>
+<p>Geeky and intellectually stimulating beats</p>
+</div>
+<div class="songs-grid" id="nerdy-songs">
+<!-- Coming soon placeholder -->
+</div>
+</div>
+<div class="tab-content" id="dance">
+<div class="section-header">
+<h2>Dance</h2>
+<p>High-energy dance tracks to move to</p>
+</div>
+<div class="songs-grid" id="shake-dat-booty-songs">
+<!-- Coming soon placeholder -->
+</div>
+</div>
+<div class="tab-content" id="country">
+<div class="section-header">
+<h2>Country</h2>
+<p>Country-inspired beats with a modern twist</p>
+</div>
+<div class="songs-grid" id="honky-tonk-songs">
+<!-- Coming soon placeholder -->
+</div>
+</div>
+<div class="tab-content" id="happy">
+<div class="section-header">
+<h2>Let's Smile</h2>
+<p>Uplifting and joyful melodies</p>
+</div>
+<div class="songs-grid" id="lets-smile-songs">
+<!-- Coming soon placeholder -->
+</div>
+</div>
+<div class="tab-content" id="world">
+<div class="section-header">
+<h2>World</h2>
+<p>World music influences and global rhythms</p>
+</div>
+<div class="songs-grid" id="musica-songs">
+<!-- Coming soon placeholder -->
+</div>
+</div>
+<div class="tab-content" id="hiphop">
+<div class="section-header">
+<h2>Hiphop</h2>
+<p>High-intensity tracks for motivation</p>
+</div>
+<div class="songs-grid" id="pump-up-songs">
+<div class="song-card hiphop-card" data-id="1">
+<div class="song-header">
+<input class="song-title" spellcheck="false" type="text" value="King's Blood (Legacy Cut)"/>
+<div class="song-actions">
+<i class="fas fa-edit edit-icon" title="Edit title"></i>
+</div>
+</div>
+<div class="audio-player">
+<audio class="audio-player-element" controls="">
+<source src="songs/kings-blood.mp3" type="audio/mpeg"/>
                             Your browser does not support the audio element.
                         </audio>
-                    </div>
-                    <div class="song-meta">
-                        <span>0:00 / 2:40</span>
-                        <span>Girlie Pop</span>
-                    </div>
-                    <button class="lyrics-toggle">
-                        <span>Show Lyrics</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="lyrics-container">
-                        <div class="lyrics-content">
-                            [VERSE 1]
-                            Four-eleven, honey, but that ass a skyscraper prize (ooh!)
-                            Calendar Tetris, open slot? Girl, try July! (slide in!)
-                            Self-defense diploma in a lavender clutch (yeah!)
-                            She break your heart or your wrist, depends on the touch... or how much (uh-huh!)
-                            Paperback FREAKY fiction stacked thigh-high by the bed (read it!)
-                            Plot so WILD even my Kindle blushed RED (soaked it!)
-                            Rumor ’bout that workplace rendezvous? Hmm, alleged? NAH, CONFIRMED! (oops!)
-                            If Grandma asks, “It was just a DAYDREAM I read... HARD.” (mmph!)
-                            
-                            [CHORUS]
-                            S.M.U.T (say it!)
-                            She Moves Unapologetic & Tough, come FLEX with me (work!)
-                            Smart-mouth, MIGHTY thighs, shake the patriarchy, LEGS QUAKIN'! (clap!)
-                            Two phones LIGHTIN’ UP, ring, ring: “Pay the FEE... or get a free trial?” (cha-ching!)
-                            S.M.U.T (spell it out!)
-                            Small frame, universe REACH, ownin’ every beat (every beat!)
-                            Clap back, brass BLAST, crowd UP on their feet (jump!)
-                            S.M.U.T baby, that’s ELITE... that's that WET! (elite!)
-                            
-                            [VERSE 2]
-                            She downsized the TITTIES, upgraded the CLAP! (facts!)
-                            Board-room HURRICANE in a floral power-verse... legs uncrossed (power!)
-                            Signed her bachelor’s at twenty-one, tassels on FIRE (educated!)
-                            Now her résumé headline reads “World-Domination Squire... and Desire!” (boss!)
-                            Sky dove once truth just to humble the clouds... climax? (high!)
-                            Caption reads: “Short queens allowed... to RIDE!” (yuh!)
-                            Wit so QUICK she invoices every pun... and every inch (charge it!)
-                            Try to catch her? Better triple-space your run... and bring stamina! (too slow!)/
-                            
-                            [PRE-CHORUS]
-                            Step-CLICK-WHIP! credit limits QUAKE! (shake that!)
-                            Gloss on TEN, she redefines the stakes... and the sheets!  (glossy!)
-                            GPS says “BUSY” reroute that D! (nope!)
-                            Even the satellites know you LATE to her vibe... and her peak! (bye!)
-                            
-                            [BRIDGE]
-                            S.M.U.T Strike like THUNDER (hear that?)
-                            S.M.U.T Make ’em WONDER (where she at?)
-                            S.M.U.T Untouchable UNDER (pressure!)
-                            S.M.U.T Turn the doubt to PLUNDER! (get it!)
-                            “She files haters under ‘Other.’ Try next era, motherfu
-                            
-                            [FINAL CHORUS]
-                            S.M.U.T (LOUDER!)
-                            She Moves Unapologetic & Tough, come flex with me (flex!)
-                            Smart-mouth, MIGHTY thighs, shake the patriarchy, LEGS QUAKIN'! (quake!)
-                            Two phones LIGHTIN’ UP, ring, ring: “Pay the FEE!” (pay it!)
-                            Whoa-oh, whoa-oh lift it up, SET IT FREE! / (whoa-oh!)
-                            S.M.U.T (ELITE!)
-                            Small frame, universe reach, ownin’ every BEAT (own it!)
-                            Clap back, brass BLAST, crowd UP on their feet (up!)
-                            S.M.U.T baby, that’s ELITE... that's that WET! / (wet!)
-                            Whoa-oh, whoa-oh DANCE THIS RUNWAY WITH ME! (runway!)
-                            
-                            [OUTRO]
-                            Bass fade horns WAVE heartbeat RAVE (feel it!)
-                            S-M-U-T etched BOLD on the brave... and the BAD! (period!)
-                            Slide into the day like a headline SCOOP (scoop!)
-                            Girl, you’re the plot twist, now go own your LOOP... and that COOCH! (yes!) (beat drop)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="tab-content" id="girlie-pop">
-            <div class="section-header">
-                <h2>Girlie Pop</h2>
-                <p>Upbeat and catchy pop anthems</p>
-            </div>
-            <div class="songs-grid" id="girlie-pop-songs">
-                <div class="song-card girlie-pop-card" data-id="3">
-                    <div class="song-header">
-                        <input type="text" class="song-title" value="S.M.U.T" spellcheck="false">
-                        <div class="song-actions">
-                            <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                        </div>
-                    </div>
-                    <div class="audio-player">
-                        <audio controls class="audio-player-element">
-                            <source src="songs/smut.mp3" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                    <div class="song-meta">
-                        <span>0:00 / 2:40</span>
-                        <span>Girlie Pop</span>
-                    </div>
-                    <button class="lyrics-toggle">
-                        <span>Show Lyrics</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="lyrics-container">
-                        <div class="lyrics-content">
-                            [VERSE 1]
-                            Four-eleven, honey, but that ass a skyscraper prize (ooh!)
-                            Calendar Tetris, open slot? Girl, try July! (slide in!)
-                            Self-defense diploma in a lavender clutch (yeah!)
-                            She break your heart or your wrist, depends on the touch... or how much (uh-huh!)
-                            Paperback FREAKY fiction stacked thigh-high by the bed (read it!)
-                            Plot so WILD even my Kin-dle blushed RED (soaked it!)
-                            Rumor ’bout that workplace rendezvous? Hmm, alleged? NAH, CONFIRMED! (oops!)
-                            If Grandma asks, “It was just a DAYDREAM I read... HARD.” (mmph!)
-                            
-                            [CHORUS]
-                            S.M.U.T (say it!)
-                            She Moves Unapologetic & Tough, come FLEX with me (work!)
-                            Smart-mouth, MIGHTY thighs, shake the patriarchy, LEGS QUAKIN'! (clap!)
-                            Two phones LIGHTIN’ UP, ring, ring: “Pay the FEE... or get a free trial?” (cha-ching!)
-                            S.M.U.T (spell it out!)
-                            Small frame, universe REACH, ownin’ every beat (every beat!)
-                            Clap back, brass BLAST, crowd UP on their feet (jump!)
-                            S.M.U.T baby, that’s ELITE... that's that WET! (elite!)
-                            
-                            [VERSE 2]
-                            She downsized the TITTIES, upgraded the CLAP! (facts!)
-                            Board-room HURRICANE in a floral power-verse... legs uncrossed (power!)
-                            Signed her bachelor’s at twenty-one, tassels on FIRE (educated!)
-                            Now her résumé headline reads “World-Domination Squire... and Desire!” (boss!)
-                            Sky dove once truth just to humble the clouds... climax? (high!)
-                            Caption reads: “Short queens allowed... to RIDE!” (yuh!)
-                            Wit so QUICK she invoices every pun... and every inch (charge it!)
-                            Try to catch her? Better triple-space your run... and bring stamina! (too slow!)/
-                            
-                            [PRE-CHORUS]
-                            Step-CLICK-WHIP! credit limits QUAKE! (shake that!)
-                            Gloss on TEN, she redefines the stakes... and the sheets!  (glossy!)
-                            GPS says “BUSY” reroute that D! (nope!)
-                            Even the satellites know you LATE to her vibe... and her peak! (bye!)
-                            
-                            [BRIDGE]
-                            S.M.U.T Strike like THUNDER (hear that?)
-                            S.M.U.T Make ’em WONDER (where she at?)
-                            S.M.U.T Untouchable UNDER (pressure!)
-                            S.M.U.T Turn the doubt to PLUNDER! (get it!)
-                            “She files haters under ‘Other.’ Try next era, motherfu
-                            
-                            [FINAL CHORUS]
-                            S.M.U.T (LOUDER!)
-                            She Moves Unapologetic & Tough, come flex with me (flex!)
-                            Smart-mouth, MIGHTY thighs, shake the patriarchy, LEGS QUAKIN'! (quake!)
-                            Two phones LIGHTIN’ UP, ring, ring: “Pay the FEE!” (pay it!)
-                            Whoa-oh, whoa-oh lift it up, SET IT FREE! (whoa-oh!)
-                            S.M.U.T (ELITE!)
-                            Small frame, universe reach, ownin’ every BEAT (own it!)
-                            Clap back, brass BLAST, crowd UP on their feet (up!)
-                            S.M.U.T baby, that’s ELITE... that's that WET! (wet!)
-                            Whoa-oh, whoa-oh DANCE THIS RUNWAY WITH ME! (runway!)
-                            
-                            [OUTRO]
-                            Bass fade horns WAVE heartbeat RAVE (feel it!)
-                            S-M-U-T etched BOLD on the brave... and the BAD! (period!)
-                            Slide into the day like a headline SCOOP (scoop!)
-                            Girl, you’re the plot twist, now go own your LOOP... and that COOCH! (yes!) (beat drop)
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="tab-content" id="in-my-feels">
-            <div class="section-header">
-                <h2>In My Feels</h2>
-                <p>Emotional and introspective tracks</p>
-            </div>
-            <div class="songs-grid" id="in-my-feels-songs">
-                <!-- Coming soon placeholder -->
-            </div>
-        </div>
-        
-        <div class="tab-content" id="nerdy">
-            <div class="section-header">
-                <h2>Nerdy</h2>
-                <p>Geeky and intellectually stimulating beats</p>
-            </div>
-            <div class="songs-grid" id="nerdy-songs">
-                <!-- Coming soon placeholder -->
-            </div>
-        </div>
-        
-        <div class="tab-content" id="shake-dat-booty">
-            <div class="section-header">
-                <h2>Shake Dat Booty</h2>
-                <p>High-energy dance tracks to move to</p>
-            </div>
-            <div class="songs-grid" id="shake-dat-booty-songs">
-                <!-- Coming soon placeholder -->
-            </div>
-        </div>
-        
-        <div class="tab-content" id="honky-tonk">
-            <div class="section-header">
-                <h2>Honky Tonk</h2>
-                <p>Country-inspired beats with a modern twist</p>
-            </div>
-            <div class="songs-grid" id="honky-tonk-songs">
-                <!-- Coming soon placeholder -->
-            </div>
-        </div>
-        
-        <div class="tab-content" id="lets-smile">
-            <div class="section-header">
-                <h2>Let's Smile</h2>
-                <p>Uplifting and joyful melodies</p>
-            </div>
-            <div class="songs-grid" id="lets-smile-songs">
-                <!-- Coming soon placeholder -->
-            </div>
-        </div>
-        
-        <div class="tab-content" id="musica">
-            <div class="section-header">
-                <h2>Musica</h2>
-                <p>World music influences and global rhythms</p>
-            </div>
-            <div class="songs-grid" id="musica-songs">
-                <!-- Coming soon placeholder -->
-            </div>
-        </div>
-        
-        <div class="tab-content" id="pump-up">
-            <div class="section-header">
-                <h2>Pump Up</h2>
-                <p>High-intensity tracks for motivation</p>
-            </div>
-            <div class="songs-grid" id="pump-up-songs">
-                <div class="song-card pump-up-card" data-id="1">
-                    <div class="song-header">
-                        <input type="text" class="song-title" value="King's Blood (Legacy Cut)" spellcheck="false">
-                        <div class="song-actions">
-                            <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                        </div>
-                    </div>
-                    <div class="audio-player">
-                        <audio controls class="audio-player-element">
-                            <source src="songs/kings-blood.mp3" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                    <div class="song-meta">
-                        <span>0:00 / 3:01</span>
-                        <span>Pump Up</span>
-                    </div>
-                    <button class="lyrics-toggle">
-                        <span>Show Lyrics</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="lyrics-container">
-                        <div class="lyrics-content">Verse 1...
+</div>
+<div class="song-meta">
+<span>0:00 / 3:01</span>
+<span>Hiphop</span>
+</div>
+<button class="lyrics-toggle">
+<span>Show Lyrics</span>
+<i class="fas fa-chevron-down"></i>
+</button>
+<div class="lyrics-container">
+<div class="lyrics-content">Verse 1...
 Chorus...
 Verse 2...</div>
-                    </div>
-                </div>
-                
-                <div class="song-card pump-up-card" data-id="2">
-                    <div class="song-header">
-                        <input type="text" class="song-title" value="Big Bro Diss Track" spellcheck="false">
-                        <div class="song-actions">
-                            <i class="fas fa-edit edit-icon" title="Edit title"></i>
-                        </div>
-                    </div>
-                    <div class="audio-player">
-                        <audio controls class="audio-player-element">
-                            <source src="songs/big-bro-diss-track.mp3" type="audio/mpeg">
+</div>
+</div>
+<div class="song-card hiphop-card" data-id="2">
+<div class="song-header">
+<input class="song-title" spellcheck="false" type="text" value="Big Bro Diss Track"/>
+<div class="song-actions">
+<i class="fas fa-edit edit-icon" title="Edit title"></i>
+</div>
+</div>
+<div class="audio-player">
+<audio class="audio-player-element" controls="">
+<source src="songs/big-bro-diss-track.mp3" type="audio/mpeg"/>
                             Your browser does not support the audio element.
                         </audio>
-                    </div>
-                    <div class="song-meta">
-                        <span>0:00 / 2:36</span>
-                        <span>Pump Up</span>
-                    </div>
-                    <button class="lyrics-toggle">
-                        <span>Show Lyrics</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="lyrics-container">
-                        <div class="lyrics-content">Diss lyrics here...</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Coming Soon Section -->
-        <div class="placeholder-container" id="coming-soon">
-            <div class="placeholder-icon">
-                <i class="fas fa-compact-disc"></i>
-            </div>
-            <h2 class="placeholder-title">More Music Coming Soon</h2>
-            <p class="placeholder-subtitle">David is currently working on new tracks across all genres. Check back regularly for updates!</p>
-            
-            <div class="placeholder-grid">
-                <div class="placeholder-card">
-                    <div class="placeholder-card-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3 class="placeholder-card-title">Girlie Pop</h3>
-                    <p class="placeholder-card-text">3 new tracks in production</p>
-                    <div class="placeholder-card-number">01</div>
-                </div>
-                
-                <div class="placeholder-card">
-                    <div class="placeholder-card-icon">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <h3 class="placeholder-card-title">In My Feels</h3>
-                    <p class="placeholder-card-text">2 emotional tracks coming</p>
-                    <div class="placeholder-card-number">02</div>
-                </div>
-                
-                <div class="placeholder-card">
-                    <div class="placeholder-card-icon">
-                        <i class="fas fa-chess"></i>
-                    </div>
-                    <h3 class="placeholder-card-title">Nerdy</h3>
-                    <p class="placeholder-card-text">Geeky beats in development</p>
-                    <div class="placeholder-card-number">03</div>
-                </div>
-                
-                <div class="placeholder-card">
-                    <div class="placeholder-card-icon">
-                        <i class="fas fa-music"></i>
-                    </div>
-                    <h3 class="placeholder-card-title">Shake Dat Booty</h3>
-                    <p class="placeholder-card-text">4 dance tracks on the way</p>
-                    <div class="placeholder-card-number">04</div>
-                </div>
-            </div>
-        </div>
-        
-        <footer>
-            <div class="footer-logo">BEATS BY DAVID</div>
-            <div class="footer-subtitle">Showcasing the cutting edge of music</div>
-            <p>Created with ❤️ | Pushing the boundaries of musical creativity</p>
-            <div class="copyright">© 2025 Beats by David. All rights reserved.</div>
-        </footer>
-    </div>
-
-    <script>
+</div>
+<div class="song-meta">
+<span>0:00 / 2:36</span>
+<span>Hiphop</span>
+</div>
+<button class="lyrics-toggle">
+<span>Show Lyrics</span>
+<i class="fas fa-chevron-down"></i>
+</button>
+<div class="lyrics-container">
+<div class="lyrics-content">Diss lyrics here...</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Coming Soon Section -->
+<div class="placeholder-container" id="coming-soon">
+<div class="placeholder-icon">
+<i class="fas fa-compact-disc"></i>
+</div>
+<h2 class="placeholder-title">More Music Coming Soon</h2>
+<p class="placeholder-subtitle">David is currently working on new tracks across all genres. Check back regularly for updates!</p>
+<div class="placeholder-grid">
+<div class="placeholder-card">
+<div class="placeholder-card-icon">
+<i class="fas fa-heart"></i>
+</div>
+<h3 class="placeholder-card-title">Pop</h3>
+<p class="placeholder-card-text">3 new tracks in production</p>
+<div class="placeholder-card-number">01</div>
+</div>
+<div class="placeholder-card">
+<div class="placeholder-card-icon">
+<i class="fas fa-cloud"></i>
+</div>
+<h3 class="placeholder-card-title">Rnb</h3>
+<p class="placeholder-card-text">2 emotional tracks coming</p>
+<div class="placeholder-card-number">02</div>
+</div>
+<div class="placeholder-card">
+<div class="placeholder-card-icon">
+<i class="fas fa-chess"></i>
+</div>
+<h3 class="placeholder-card-title">Electronic</h3>
+<p class="placeholder-card-text">Geeky beats in development</p>
+<div class="placeholder-card-number">03</div>
+</div>
+<div class="placeholder-card">
+<div class="placeholder-card-icon">
+<i class="fas fa-music"></i>
+</div>
+<h3 class="placeholder-card-title">Dance</h3>
+<p class="placeholder-card-text">4 dance tracks on the way</p>
+<div class="placeholder-card-number">04</div>
+</div>
+</div>
+</div>
+<footer>
+<div class="footer-logo">BEATS BY DAVID</div>
+<div class="footer-subtitle">Showcasing the cutting edge of music</div>
+<p>Created with ❤️ | Pushing the boundaries of musical creativity</p>
+<div class="copyright">© 2025 Beats by David. All rights reserved.</div>
+</footer>
+</div>
+<script>
     document.addEventListener('DOMContentLoaded', () => {
         // Theme toggle functionality
         const themeToggle = document.getElementById('themeToggle');
@@ -1652,7 +1461,7 @@ Verse 2...</div>
         
         const genreColors = {
             'featured': { primary: '#6c63ff', secondary: '#ff7b9c' },
-            'girlie-pop': { primary: '#ff9ecf', secondary: '#ffc2e0' },
+            'pop': { primary: '#ff9ecf', secondary: '#ffc2e0' },
             'in-my-feels': { primary: '#8a89c0', secondary: '#a6a5d8' },
             'nerdy': { primary: '#5bc0eb', secondary: '#89d6fb' },
             'shake-dat-ass': { primary: '#ff6b6b', secondary: '#ff9e9e' },
